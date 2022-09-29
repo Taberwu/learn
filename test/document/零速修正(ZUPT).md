@@ -3,7 +3,7 @@
  * @Author: Taber.wu
  * @Date: 2022-09-28 14:09:05
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-09-28 16:34:35
+ * @LastEditTime: 2022-09-29 08:18:38
  * @Descripttion: 
 -->
 # 零速修正
@@ -59,5 +59,30 @@ $$\boldsymbol{\tilde{Z}}  =
 对于连续图像，如果特征轨迹之间的视差变化很小时，计算平均视察和阈值，但是环境是动态时，结果会有错误，需要配合以上基于惯性组件的方法一同使用。   
 $$\frac{1}{N}\sum^N_{i=0}||uv_{k,i}-uv_{k-1,i}||<\Delta d \tag{1-4}$$
 
+## 代码阅读
+***corenav-GP  [源码链接](https://github.com/wvu-navLab/corenav-GP.git)***  
+Affiliation: WVU NAVLAB  
+代码完整系统架构图：!['corenav'](picture/corenav_系统图.png)
 
+```
+void CoreNav::zeroUpdate(const CoreNav::Vector3 vel, const CoreNav::Vector3 att, const CoreNav::Vector3 llh, CoreNav::Vector15 error_states, Eigen::MatrixXd P, const CoreNav::Vector3 omega_b_ib){
+        countZero++;
+        CoreNav::Matrix3 Cnb = CoreNav::eul_to_dcm(att[0],att[1],att[2]);
+        CoreNav::Vector3 z_zaru;
+        CoreNav::Vector3 z_zupt;
+        z_zaru = -omega_b_ib.transpose();
+        z_zupt = -vel;
+        CoreNav::Vector6 z_zero;
+        z_zero.segment(0,3) <<z_zaru;
+        z_zero.segment(3,3) <<z_zupt;
+        K_zero = P * H_zero.transpose() * (H_zero * P * H_zero.transpose() + R_zero).inverse();
+        error_states_ = error_states + K_zero * (z_zero  - (H_zero * error_states));
+        ins_att_ = CoreNav::dcm_to_eul((Eigen::MatrixXd::Identity(3,3)- CoreNav::skew_symm(error_states_.segment(0,3)))*Cnb.transpose());
+        ins_vel_ = vel - error_states_.segment(3,3);
+        ins_pos_ = llh - error_states_.segment(6,3);
+        error_states_.segment(0,9)<<Eigen::VectorXd::Zero(9);
+        P_=(Eigen::MatrixXd::Identity(15,15) - K_zero * H_zero) * P * ( Eigen::MatrixXd::Identity(15,15) - K_zero * H_zero ).transpose() + K_zero * R_zero * K_zero.transpose();
 
+        return;
+}
+```
