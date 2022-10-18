@@ -7,21 +7,21 @@ ENDIF()
 
 MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall   -O1")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g ")
+# set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -fPIC")
 
 SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
-if(COMPILER_SUPPORTS_CXX17)
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
-   add_definitions(-DCOMPILEDWITHC17)
-   message(STATUS "Using flag -std=c++17.")
-else()
-   message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++17 support. Please use a different C++ compiler.")
-endif()
+# include(CheckCXXCompilerFlag)
+# CHECK_CXX_COMPILER_FLAG("-std=c++17" COMPILER_SUPPORTS_CXX17)
+# if(COMPILER_SUPPORTS_CXX17)
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+#    add_definitions(-DCOMPILEDWITHC17)
+#    message(STATUS "Using flag -std=c++17.")
+# else()
+#    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++17 support. Please use a different C++ compiler.")
+# endif()
 
 
 
@@ -30,12 +30,12 @@ find_package(Eigen3 REQUIRED NO_MODUDLE)
 
 
 include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/include
+  # ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${EIGEN3_INCLUDE_DIR}
  
 )
 
-file(GLOB_RECURSE JSSLAM_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp CONFIGURE_DEPEN)
+#file(GLOB_RECURSE JSSLAM_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp )
 
 add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp)
 target_link_libraries(code_test -pthread -fPIC)

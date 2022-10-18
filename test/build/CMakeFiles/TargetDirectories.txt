@@ -1,0 +1,3 @@
+/home/joyson/Desktop/workspace/learn/test/build/CMakeFiles/code_test.dir
+/home/joyson/Desktop/workspace/learn/test/build/CMakeFiles/edit_cache.dir
+/home/joyson/Desktop/workspace/learn/test/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -g  -g -rdynamic CMakeFiles/code_test.dir/src/test.cpp.o -o ../bin/code_test  -pthread -fPIC 
