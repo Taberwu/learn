@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = 
+CXX_INCLUDES = -I/home/joyson/Desktop/workspace/learn/test/Thirdparty -I/home/joyson/Desktop/workspace/learn/test/include
 
 CXX_FLAGS =  -Wall -g  -g
 

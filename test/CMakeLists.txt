@@ -6,7 +6,7 @@ IF(NOT CMAKE_BUILD_TYPE)
 ENDIF()
 
 MESSAGE("Build type: " ${CMAKE_BUILD_TYPE})
-
+MESSAGE( "current dir ${CMAKE_CURRENT_SOURCE_DIR}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -g ")
 # set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
 # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -shared -fPIC")
@@ -32,11 +32,17 @@ find_package(Eigen3 REQUIRED NO_MODUDLE)
 include_directories(
   # ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${EIGEN3_INCLUDE_DIR}
- 
+  ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 
-#file(GLOB_RECURSE JSSLAM_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp )
 
-add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp)
+file(GLOB_RECURSE  HEAD_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
+                             ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pugixml/*.hpp 
+                             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
+file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pugixml/*.cpp )
+add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp
+                          ${HEAD_FILE}
+                          ${SOURCE_FILES})
 target_link_libraries(code_test -pthread -fPIC)
 

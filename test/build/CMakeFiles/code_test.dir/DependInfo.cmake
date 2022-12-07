@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/joyson/Desktop/workspace/learn/test/Thirdparty/pugixml/pugixml.cpp" "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o" "gcc" "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o.d"
   "/home/joyson/Desktop/workspace/learn/test/src/test.cpp" "CMakeFiles/code_test.dir/src/test.cpp.o" "gcc" "CMakeFiles/code_test.dir/src/test.cpp.o.d"
   )
 

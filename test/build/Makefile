@@ -129,6 +129,30 @@ code_test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/code_test.dir/build.make CMakeFiles/code_test.dir/build
 .PHONY : code_test/fast
 
+Thirdparty/pugixml/pugixml.o: Thirdparty/pugixml/pugixml.cpp.o
+.PHONY : Thirdparty/pugixml/pugixml.o
+
+# target to build an object file
+Thirdparty/pugixml/pugixml.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code_test.dir/build.make CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o
+.PHONY : Thirdparty/pugixml/pugixml.cpp.o
+
+Thirdparty/pugixml/pugixml.i: Thirdparty/pugixml/pugixml.cpp.i
+.PHONY : Thirdparty/pugixml/pugixml.i
+
+# target to preprocess a source file
+Thirdparty/pugixml/pugixml.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code_test.dir/build.make CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.i
+.PHONY : Thirdparty/pugixml/pugixml.cpp.i
+
+Thirdparty/pugixml/pugixml.s: Thirdparty/pugixml/pugixml.cpp.s
+.PHONY : Thirdparty/pugixml/pugixml.s
+
+# target to generate assembly for a file
+Thirdparty/pugixml/pugixml.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/code_test.dir/build.make CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.s
+.PHONY : Thirdparty/pugixml/pugixml.cpp.s
+
 src/test.o: src/test.cpp.o
 .PHONY : src/test.o
 
@@ -162,6 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... code_test"
+	@echo "... Thirdparty/pugixml/pugixml.o"
+	@echo "... Thirdparty/pugixml/pugixml.i"
+	@echo "... Thirdparty/pugixml/pugixml.s"
 	@echo "... src/test.o"
 	@echo "... src/test.i"
 	@echo "... src/test.s"

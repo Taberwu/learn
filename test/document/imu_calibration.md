@@ -3,7 +3,7 @@
  * @Author: Taber.wu
  * @Date: 2022-10-31 08:41:11
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2022-11-04 16:29:48
+ * @LastEditTime: 2022-11-04 17:53:44
  * Copyright: 2022 JOYSON CO.,LTD. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -27,5 +27,8 @@ $$\begin{aligned}
 yaw失准角的估计需要运动状态下，根据运动学模型：  
 $$v^r_{er,y}\approx I_r\omega ^r_Z-SGv^r_{er,x}f^r_{ir,y^`}$$
 由真值系统的roll值代表道路平面，得到：  
-$$v^v_{ev,y}=v^r_{er,y$$  
-当车辆理想地在水平路面直线行驶时
+$$v^v_{ev,y}=v^r_{er,y}+v^r_{rv,z}\phi_{rv}-h_r\dot{\phi}_{rv}$$  
+当车辆匀速直线在路面直线行驶时,考虑到道路测滑角：   
+$$\psi_{vg} = -\frac{v^g_{ev,y}}{v^g_{ev,x}}+\beta_{brank}$$  
+类似地在同一段短距离路面上以相反的方向行驶，可以得到： 
+$$\psi_{vg} = -(\frac{^1v^g_{ev,y}}{^1v^g_{ev,x}}+\frac{^2v^g_{ev,y}}{^2v^g_{ev,x}})/2$$

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "../bin/code_test"
   "../bin/code_test.pdb"
+  "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o"
+  "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o.d"
   "CMakeFiles/code_test.dir/src/test.cpp.o"
   "CMakeFiles/code_test.dir/src/test.cpp.o.d"
 )
