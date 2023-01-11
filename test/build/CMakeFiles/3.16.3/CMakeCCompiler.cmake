@@ -1,7 +1,11 @@
 set(CMAKE_C_COMPILER "/usr/bin/cc")
 set(CMAKE_C_COMPILER_ARG1 "")
 set(CMAKE_C_COMPILER_ID "GNU")
+<<<<<<< HEAD:test/build/CMakeFiles/3.16.3/CMakeCCompiler.cmake
 set(CMAKE_C_COMPILER_VERSION "9.4.0")
+=======
+set(CMAKE_C_COMPILER_VERSION "11.3.0")
+>>>>>>> 673e9c74563dcf5f78e5db5ac4d0f452c5b7aae4:test/build/CMakeFiles/3.22.1/CMakeCCompiler.cmake
 set(CMAKE_C_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_C_COMPILER_WRAPPER "")
 set(CMAKE_C_STANDARD_COMPUTED_DEFAULT "11")

@@ -4,7 +4,11 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =  -Wall -g  -g  
 
+<<<<<<< HEAD
 CXX_DEFINES = 
+=======
+CXX_INCLUDES = -I/home/joyson/Desktop/workspace/learn/test/Thirdparty -I/home/joyson/Desktop/workspace/learn/test/include
+>>>>>>> 673e9c74563dcf5f78e5db5ac4d0f452c5b7aae4
 
 CXX_INCLUDES = -I/home/wyy/Desktop/develop/learn/test/include -I/usr/local/include/eigen3 
 

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 /usr/bin/c++   -Wall -g  -g  -rdynamic CMakeFiles/code_test.dir/src/test.cpp.o  -o ../bin/code_test   -L/usr/local/lib  -Wl,-rpath,/usr/local/lib -pthread -fPIC 
+=======
+/usr/bin/c++  -Wall -g  -g -rdynamic CMakeFiles/code_test.dir/src/test.cpp.o CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o -o ../bin/code_test  -pthread -fPIC 
+>>>>>>> 673e9c74563dcf5f78e5db5ac4d0f452c5b7aae4

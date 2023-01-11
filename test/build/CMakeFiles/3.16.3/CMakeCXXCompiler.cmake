@@ -1,7 +1,11 @@
 set(CMAKE_CXX_COMPILER "/usr/bin/c++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
+<<<<<<< HEAD:test/build/CMakeFiles/3.16.3/CMakeCXXCompiler.cmake
 set(CMAKE_CXX_COMPILER_VERSION "9.4.0")
+=======
+set(CMAKE_CXX_COMPILER_VERSION "11.3.0")
+>>>>>>> 673e9c74563dcf5f78e5db5ac4d0f452c5b7aae4:test/build/CMakeFiles/3.22.1/CMakeCXXCompiler.cmake
 set(CMAKE_CXX_COMPILER_VERSION_INTERNAL "")
 set(CMAKE_CXX_COMPILER_WRAPPER "")
 set(CMAKE_CXX_STANDARD_COMPUTED_DEFAULT "14")

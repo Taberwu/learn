@@ -60,15 +60,10 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "shared_mutex": "cpp",
-        "strstream": "cpp",
-        "bitset": "cpp",
-        "list": "cpp",
-        "optional": "cpp",
+        "csignal": "cpp",
+        "unordered_set": "cpp",
         "fstream": "cpp",
         "iomanip": "cpp",
-        "cfenv": "cpp",
-        "cinttypes": "cpp",
-        "typeindex": "cpp",
-        "core": "cpp"
+        "cinttypes": "cpp"
     }
 }

@@ -8,10 +8,17 @@ set(CMAKE_DEPENDS_CHECK_CXX
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
+<<<<<<< HEAD
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "/usr/local/include/eigen3"
+=======
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/joyson/Desktop/workspace/learn/test/Thirdparty/pugixml/pugixml.cpp" "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o" "gcc" "CMakeFiles/code_test.dir/Thirdparty/pugixml/pugixml.cpp.o.d"
+  "/home/joyson/Desktop/workspace/learn/test/src/test.cpp" "CMakeFiles/code_test.dir/src/test.cpp.o" "gcc" "CMakeFiles/code_test.dir/src/test.cpp.o.d"
+>>>>>>> 673e9c74563dcf5f78e5db5ac4d0f452c5b7aae4
   )
 
 # Targets to which this target links.
