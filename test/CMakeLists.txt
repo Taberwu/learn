@@ -27,16 +27,17 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 find_package(Eigen3 REQUIRED NO_MODUDLE)
 
-
-
+set(OpenCV_INCLUDE_DIRS "/usr/local/include")
+set(OpenCV_LIBRARY_DIRS "/usr/local/lib")
 include_directories(
-  # ${CMAKE_CURRENT_SOURCE_DIR}/include
+  ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${EIGEN3_INCLUDE_DIR}
- 
+  ${OpenCV_INCLUDE_DIRS}
 )
-
+file(GLOB_RECURSE HEAD_LIST  ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
 #file(GLOB_RECURSE JSSLAM_SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp )
-
-add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp)
-target_link_libraries(code_test -pthread -fPIC)
+link_directories(${OpenCV_LIBRARY_DIRS})
+add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp
+                          ${HEAD_LIST})
+target_link_libraries(code_test  -pthread -fPIC )
 
