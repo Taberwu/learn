@@ -11,6 +11,8 @@
 */
 #include <test1.h>
 #include <test2.h>
+#include <test3.h>
+#include <test4.h>
 #include <random>
 int main(int argc, char **argv){
     // auto imuMsg = std::make_shared<LocalizationMessage>();
@@ -94,12 +96,29 @@ int main(int argc, char **argv){
     // }
     // std::cout<<std::endl;
 
-    std::vector<int>ans(8,1);
-    for(auto &data :ans){
-        ++data;
+    // std::vector<int>ans(8,1);
+    // for(auto &data :ans){
+    //     ++data;
+    // }
+    // std::cout<<"ans ";
+    // for(auto data:ans) std::cout<<data<<" ";
+    // std::cout<<std::endl;
+    // std::string filepath = "/home/joyson/Desktop/tmp/zupt/";
+    // std::string filename = "imu_static.txt";
+    // std::string outfile = "imu_checkstatic.csv";
+    // auto test3_imp = std::make_shared<TestThd>(filepath);
+    // test3_imp->adjustTimestamp(1670985924747864703, filename, outfile);
+    // auto test4 = std::make_shared<TestF>();
+    std::shared_ptr<std::vector<double>> test (new std::vector<double>(5,1.0));
+    auto clone_test = std::make_shared<std::vector<double>>(std::vector<double>(*test.get()));
+    for(int i = 0;i<test->size();i++){
+        test->at(i) *= i;
     }
-    std::cout<<"ans ";
-    for(auto data:ans) std::cout<<data<<" ";
+    for(int i = 0;i<test->size();i++){
+        std::cout<<test->at(i)<<" ";
+    }
     std::cout<<std::endl;
+    for(int i = 0;i<clone_test->size();i++){
+        std::cout<<clone_test->at(i)<<" ";}
     return 0;
 }

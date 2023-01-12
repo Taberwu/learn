@@ -1,3 +1,0 @@
-/home/wyy/Desktop/develop/learn/test/build/CMakeFiles/rebuild_cache.dir
-/home/wyy/Desktop/develop/learn/test/build/CMakeFiles/edit_cache.dir
-/home/wyy/Desktop/develop/learn/test/build/CMakeFiles/code_test.dir
