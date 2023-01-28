@@ -34,13 +34,16 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
   ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
+  ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/GeographicLib-1.51/include/
 )
 
 
 file(GLOB_RECURSE  HEAD_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.hpp
                              ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pugixml/*.hpp 
-                             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h)
-file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pugixml/*.cpp )
+                             ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
+                             ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/GeographicLib-1.51/include/GeographicLib/*.hpp)
+file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pugixml/*.cpp
+				${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/GeographicLib-1.51/src/*.cpp )
 add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp
                           ${HEAD_FILE}
                           ${SOURCE_FILES})

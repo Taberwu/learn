@@ -13,7 +13,13 @@
 #include <test2.h>
 #include <test3.h>
 #include <test4.h>
+#include <test5.h>
 #include <random>
+
+void fun(int &a, int &b){
+    std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
+}
+
 int main(int argc, char **argv){
     // auto imuMsg = std::make_shared<LocalizationMessage>();
     // auto rtkMsg = std::make_shared<InspvaMessage>();
@@ -109,16 +115,29 @@ int main(int argc, char **argv){
     // auto test3_imp = std::make_shared<TestThd>(filepath);
     // test3_imp->adjustTimestamp(1670985924747864703, filename, outfile);
     // auto test4 = std::make_shared<TestF>();
-    std::shared_ptr<std::vector<double>> test (new std::vector<double>(5,1.0));
-    auto clone_test = std::make_shared<std::vector<double>>(std::vector<double>(*test.get()));
-    for(int i = 0;i<test->size();i++){
-        test->at(i) *= i;
-    }
-    for(int i = 0;i<test->size();i++){
-        std::cout<<test->at(i)<<" ";
-    }
-    std::cout<<std::endl;
-    for(int i = 0;i<clone_test->size();i++){
-        std::cout<<clone_test->at(i)<<" ";}
+    // std::shared_ptr<std::vector<double>> test (new std::vector<double>(5,1.0));
+    // auto clone_test = std::make_shared<std::vector<double>>(std::vector<double>(*test.get()));
+    // for(int i = 0;i<test->size();i++){
+    //     test->at(i) *= i;
+    // }
+    // for(int i = 0;i<test->size();i++){
+    //     std::cout<<test->at(i)<<" ";
+    // }
+    // std::cout<<std::endl;
+    // for(int i = 0;i<clone_test->size();i++){
+    //     std::cout<<clone_test->at(i)<<" ";}
+    // 
+    // Eigen::Vector3d vec_omega (-0.00104691073939974, -0.00418729105814572, -0.00108035647618588);
+    // Eigen::Vector3d vec_acce (-0.29283355228771, 0.337016259318792, 9.78620193280072);
+    // auto t = vec_acce.cross(vec_omega);
+    // std::cout<<"cross result :"<<std::endl;
+    // std::cout<<t<<std::endl;
+    // t /= t.norm();
+    // std::cout<<" unit t:"<<std::endl;
+    // std::cout<<t<<std::endl;
+  
+
+
+
     return 0;
 }

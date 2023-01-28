@@ -64,6 +64,13 @@
         "unordered_set": "cpp",
         "fstream": "cpp",
         "iomanip": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "core": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "list": "cpp",
+        "optional": "cpp",
+        "cfenv": "cpp",
+        "typeindex": "cpp"
     }
 }
