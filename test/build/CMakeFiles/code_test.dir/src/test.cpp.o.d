@@ -555,4 +555,5 @@ CMakeFiles/code_test.dir/src/test.cpp.o: \
  /home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include/GeographicLib/SphericalHarmonic1.hpp \
  /home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include/GeographicLib/GravityCircle.hpp \
  /home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include/GeographicLib/GravityModel.hpp \
- /home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include/GeographicLib/NormalGravity.hpp
+ /home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include/GeographicLib/NormalGravity.hpp \
+ /home/joyson/Desktop/workspace/learn/test/include/test6.h

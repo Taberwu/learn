@@ -14,6 +14,7 @@
 #include <test3.h>
 #include <test4.h>
 #include <test5.h>
+#include <test6.h>
 #include <random>
 
 void fun(int &a, int &b){
@@ -136,7 +137,14 @@ int main(int argc, char **argv){
     // std::cout<<" unit t:"<<std::endl;
     // std::cout<<t<<std::endl;
   
+    auto test_six = std::make_shared<TESTSX>(31.34532872, 5.0, Eigen::Vector3d(1, 0, 0));
+    test_six->test();
 
+    // Eigen::Vector4d tmp = Eigen::Vector4d::Ones();
+    // Eigen::Vector3d a(2.,3.,4.0);
+    // double b = 5.0;
+    // tmp = Eigen::Vector4d(a[0], a[1], a[2], b);
+    // std::cout<<tmp.transpose()<<std::endl;
 
 
     return 0;

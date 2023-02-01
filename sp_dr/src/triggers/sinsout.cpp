@@ -281,12 +281,12 @@ void Strapdowncal::sinsdata_transfer(SensorDataInput *recv_sins_totle,SensorData
 
 }
 
-
+//依次绕roll pitch yaw 旋转 
 void Strapdowncal::Cbt_cal(double x, double y, double z)
 {
-    double fai = x*DEGREE2RAD;
-    double si = y*DEGREE2RAD;
-    double ga = z*DEGREE2RAD;
+    double fai = x*DEGREE2RAD;//heading
+    double si = y*DEGREE2RAD;//pitch 
+    double ga = z*DEGREE2RAD;//roll
     Cbt( 0, 0 ) = cos(ga)*cos(fai)-sin(ga)*sin(si)*sin(fai);
     Cbt( 0, 1 ) = cos(ga)*sin(fai)+sin(ga)*sin(si)*cos(fai);
     Cbt( 0, 2 ) = -sin(ga)*cos(si);
