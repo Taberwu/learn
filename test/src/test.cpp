@@ -15,11 +15,40 @@
 #include <test4.h>
 #include <test5.h>
 #include <test6.h>
+#include <test7.h>
+#include <test8.h>
+#include <test9.h>
 #include <random>
+#include <thread>
+#include <chrono>
+#include <sstream>
+#include <iomanip>
+
+
 
 void fun(int &a, int &b){
     std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
 }
+
+void f1( TestEi::DataA& data){
+    auto a = data;
+    a.run();
+    std::cout<<"----------"<<std::endl;
+}
+
+void f2( TestEi::DataB& data){
+    auto b = data;
+    b.run();
+    std::cout<<"==========="<<std::endl;
+}
+
+template<typename T>
+void mycout (double a){
+    T b = (T)a;
+    std::cout<<b<<std::endl;
+}
+
+using namespace Test;
 
 int main(int argc, char **argv){
     // auto imuMsg = std::make_shared<LocalizationMessage>();
@@ -137,8 +166,8 @@ int main(int argc, char **argv){
     // std::cout<<" unit t:"<<std::endl;
     // std::cout<<t<<std::endl;
   
-    auto test_six = std::make_shared<TESTSX>(31.34532872, 5.0, Eigen::Vector3d(1, 0, 0));
-    test_six->test();
+    // auto test_six = std::make_shared<TESTSX>(31.34532872, 5.0, Eigen::Vector3d(1, 0, 0));
+    // test_six->test();
 
     // Eigen::Vector4d tmp = Eigen::Vector4d::Ones();
     // Eigen::Vector3d a(2.,3.,4.0);
@@ -146,6 +175,115 @@ int main(int argc, char **argv){
     // tmp = Eigen::Vector4d(a[0], a[1], a[2], b);
     // std::cout<<tmp.transpose()<<std::endl;
 
+    // auto test = std::make_shared<Test::TestSev>();
+    // test->register_recorder("imu");
+    // test->register_recorder("raw");
+    // double data_a2=-1.0;
+    // int data_a3 =0;
+    // std::int64_t data_timestamp;
+    // std::thread th1 = std::thread([&](){
+    //     int i =0;
+    //     Test::DataA data_a;
+    //     data_a.a1 = M_PI;
+    //     data_a.a2 = 75.9268;
+    //     data_a.a3 = 1234;
+    //     data_a.a4 = {"imu"};
+    //     data_a.sts = - 0b11100;
+    //     std::string format_a = {"I: %llu, %.5f,%.1f,%d,%s %u\n"};
+    //     while(i<80){
+    //       auto t = std::chrono::steady_clock::now().time_since_epoch().count();
+    //       data_a2 = data_a.a2;
+    //       data_a3 = ++i;
+    //       data_timestamp = t;
+    //       test->record("imu", format_a, t,data_a.a1, data_a.a2, data_a.a3, data_a.a4.c_str(), data_a.sts);
+           
+    //         usleep(10000);
+    //     }
+    // });
 
+    //     std::thread th2 = std::thread([&](){
+    //     int i =0;
+    //     Test::DataB data_b;
+    //     data_b.b1 = {"data_status"};
+    //     data_b.sts = 0x1e;
+    //     data_b.b2 = 4.;
+    //     data_b.b3 = 125452;
+    //     std::string format_a = {"V: %llu, %s %u %.1f%d\n"};
+    //     std::string format_raw ={"R: %llu , %llu, %d  %.3f %s \n"};
+    //     while(i<40){
+    //       auto t = std::chrono::steady_clock::now().time_since_epoch().count();
+    //       test->record("imu", format_a, t,data_b.b1.c_str(), 
+    //                     data_b.sts, data_b.b2, data_b.b3);
+    //       if((data_a3/10)%2==0)  data_a2 *=-1.0;
+    //       test->record("raw", format_raw, data_timestamp, t,
+    //                                      data_a3, data_a2, data_b.b1.c_str());
+    //         i++;
+    //         usleep(20000);
+    //     }
+    // });
+    // th1.join();
+    // th2.join();
+   
+    //  [&](const TestEi::DataA &data){
+    //     std::cout<<"-----------"<<std::endl;
+    // };
+
+    
+    // auto test = std::make_shared<TestEi::Sub>();
+    // void (*data_Acallback) ( TestEi::DataA &data) = f1;
+    // void (*data_Bcallback) ( TestEi::DataB &data) = f2;
+    // void (*data_Bcallback)(const TestEi::DataB &data) = [&](const TestEi::DataB &data){
+    //     std::cout<<"============="<<std::endl;
+    // };
+    // test->register_handler(data_Acallback);
+    // test->register_handler(data_Bcallback);
+    // test->run();
+    // std::vector<std::string>test_coll;
+
+    // std::string test ={"R: 345267171171 121.54682821 31.2517907 3.163 152.34 1.362 -0.466"};
+    // test_coll.push_back(test);
+    // std::string test2={"I: 0.0036 0.0013 1.4325 1.4352 0.6312 -9.7999"};
+    // test_coll.push_back(test2);
+    // std::uint64_t time_stamp;
+    // double lat, lon;
+    // float height,yaw,pitch,raw,we,wn,wu,ae,an,au;
+    // for(auto &str :test_coll){
+    //     auto tmp = str.substr(3,str.size()-3);
+    //     if(str[0] == 'R'){
+    //         std::stringstream ss(tmp);
+         
+    //         ss>>time_stamp>>lat>>lon>>height>>yaw>>pitch>>raw;
+    //         std::cout<<std::setprecision(11)<<time_stamp<<" "<<lat<<" "<<lon<<" "<<height<<" "<<yaw<<" "<<pitch<<" "<<raw<<std::endl;
+    //         std::cout<<"================"<<std::endl;
+    //     }
+    //     if(str[0] == 'I'){
+    //         std::stringstream ss;
+    //         ss.setf(std::ios::fixed);
+    //         ss.precision(4);
+    //         ss.str(tmp);
+    //         ss>>we>>wn>>wu>>ae>>an>>au;
+    //         std::cout<<we<<" "<<wn<<" "<<wu<<" "<<ae<<" "<<an<<" "<<au<<std::endl; 
+    //     }
+    // }
+    // {
+    // TestEi::DataB b (TestEi::Database(M_PI));
+    // std::cout<<typeid(b).name()<<std::endl;
+    // std::cout<<abi::__cxa_demangle(typeid(b).name(),NULL,NULL,NULL)<<std::endl;
+    // }
+    // // TestEi::DataA a (TestEi::Database(M_PI));
+    // // std::cout<<typeid(a).name()<<std::endl;
+    // std::cout<<"------------------"<<std::endl;
+    // std::cout<<typeid(DatabasePtr).name()<<std::endl;
+    // std::string strt = getTypeName<DatabasePtr>();
+    // std::cout<<strt<<std::endl;
+
+    std::cout<<getTypename<Recorder>()<<std::endl;
+    std::cout<<getTypename<TestEi::Sub::Listener>()<<std::endl;
+    
     return 0;
 }
+
+
+
+
+

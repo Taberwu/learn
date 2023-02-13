@@ -24,7 +24,7 @@ SET(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 # endif()
 
 
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 find_package(Eigen3 REQUIRED NO_MODUDLE)
 
 set(OpenCV_INCLUDE_DIRS "/usr/local/include")

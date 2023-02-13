@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/joyson/Desktop/workspace/learn/test/include -I/home/joyson/Desktop/workspace/learn/test/Thirdparty -I/home/joyson/Desktop/workspace/learn/test/Thirdparty/GeographicLib-1.51/include
 
-CXX_FLAGS =  -Wall -g  -g
+CXX_FLAGS =  -Wall -g  -std=c++17 -g
 
