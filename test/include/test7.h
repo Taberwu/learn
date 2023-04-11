@@ -57,6 +57,7 @@ public:
             fclose(record.second->file);
         }
     }
+
     bool register_recorder(std::string name, std::string path = {"/home/joyson/Desktop/tmp/sinout_test/"}){
         if(recorders_.find(name) == recorders_.end()){
             std::string fullname = path + name+"_";

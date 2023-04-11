@@ -13,42 +13,50 @@
 #include <test2.h>
 #include <test3.h>
 #include <test4.h>
-#include <test5.h>
-#include <test6.h>
-#include <test7.h>
-#include <test8.h>
-#include <test9.h>
+// #include <test5.h>
+// #include <test6.h>
+// #include <test7.h>
+// #include <test8.h>
+// #include <test9.h>
+// #include <test10.hpp>
+// #include <test11.h>
+// #include <test12.hpp>
+// #include <test13.hpp>
+// #include <test14.hpp>
+// #include <test15.hpp>
+#include <test16.hpp>
 #include <random>
 #include <thread>
 #include <chrono>
 #include <sstream>
 #include <iomanip>
+#include <vector>
 
 
 
-void fun(int &a, int &b){
-    std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
-}
+// void fun(int &a, int &b){
+//     std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
+// }
 
-void f1( TestEi::DataA& data){
-    auto a = data;
-    a.run();
-    std::cout<<"----------"<<std::endl;
-}
+// void f1( TestEi::DataA& data){
+//     auto a = data;
+//     a.run();
+//     std::cout<<"----------"<<std::endl;
+// }
 
-void f2( TestEi::DataB& data){
-    auto b = data;
-    b.run();
-    std::cout<<"==========="<<std::endl;
-}
+// void f2( TestEi::DataB& data){
+//     auto b = data;
+//     b.run();
+//     std::cout<<"==========="<<std::endl;
+// }
 
-template<typename T>
-void mycout (double a){
-    T b = (T)a;
-    std::cout<<b<<std::endl;
-}
+// template<typename T>
+// void mycout (double a){
+//     T b = (T)a;
+//     std::cout<<b<<std::endl;
+// }
 
-using namespace Test;
+// using namespace Test;
 
 int main(int argc, char **argv){
     // auto imuMsg = std::make_shared<LocalizationMessage>();
@@ -145,13 +153,13 @@ int main(int argc, char **argv){
     // auto test3_imp = std::make_shared<TestThd>(filepath);
     // test3_imp->adjustTimestamp(1670985924747864703, filename, outfile);
     // auto test4 = std::make_shared<TestF>();
-    // std::shared_ptr<std::vector<double>> test (new std::vector<double>(5,1.0));
+    // std::shared_ptr<std::vector<double>> test1 (new std::vector<double>(5,1.0));
     // auto clone_test = std::make_shared<std::vector<double>>(std::vector<double>(*test.get()));
-    // for(int i = 0;i<test->size();i++){
-    //     test->at(i) *= i;
+    // for(int i = 0;i<test1->size();i++){
+    //     test1->at(i) *= i;
     // }
-    // for(int i = 0;i<test->size();i++){
-    //     std::cout<<test->at(i)<<" ";
+    // for(int i = 0;i<test1->size();i++){
+    //     std::cout<<test1->at(i)<<" ";
     // }
     // std::cout<<std::endl;
     // for(int i = 0;i<clone_test->size();i++){
@@ -175,9 +183,9 @@ int main(int argc, char **argv){
     // tmp = Eigen::Vector4d(a[0], a[1], a[2], b);
     // std::cout<<tmp.transpose()<<std::endl;
 
-    // auto test = std::make_shared<Test::TestSev>();
-    // test->register_recorder("imu");
-    // test->register_recorder("raw");
+    // auto test2 = std::make_shared<Test::TestSev>();
+    // test2->register_recorder("imu");
+    // test2->register_recorder("raw");
     // double data_a2=-1.0;
     // int data_a3 =0;
     // std::int64_t data_timestamp;
@@ -195,7 +203,7 @@ int main(int argc, char **argv){
     //       data_a2 = data_a.a2;
     //       data_a3 = ++i;
     //       data_timestamp = t;
-    //       test->record("imu", format_a, t,data_a.a1, data_a.a2, data_a.a3, data_a.a4.c_str(), data_a.sts);
+    //       test2->record("imu", format_a, t,data_a.a1, data_a.a2, data_a.a3, data_a.a4.c_str(), data_a.sts);
            
     //         usleep(10000);
     //     }
@@ -212,10 +220,10 @@ int main(int argc, char **argv){
     //     std::string format_raw ={"R: %llu , %llu, %d  %.3f %s \n"};
     //     while(i<40){
     //       auto t = std::chrono::steady_clock::now().time_since_epoch().count();
-    //       test->record("imu", format_a, t,data_b.b1.c_str(), 
+    //       test2->record("imu", format_a, t,data_b.b1.c_str(), 
     //                     data_b.sts, data_b.b2, data_b.b3);
     //       if((data_a3/10)%2==0)  data_a2 *=-1.0;
-    //       test->record("raw", format_raw, data_timestamp, t,
+    //       test2->record("raw", format_raw, data_timestamp, t,
     //                                      data_a3, data_a2, data_b.b1.c_str());
     //         i++;
     //         usleep(20000);
@@ -229,19 +237,19 @@ int main(int argc, char **argv){
     // };
 
     
-    // auto test = std::make_shared<TestEi::Sub>();
+    // auto test3 = std::make_shared<TestEi::Sub>();
     // void (*data_Acallback) ( TestEi::DataA &data) = f1;
     // void (*data_Bcallback) ( TestEi::DataB &data) = f2;
     // void (*data_Bcallback)(const TestEi::DataB &data) = [&](const TestEi::DataB &data){
     //     std::cout<<"============="<<std::endl;
     // };
-    // test->register_handler(data_Acallback);
-    // test->register_handler(data_Bcallback);
-    // test->run();
+    // test3->register_handler(data_Acallback);
+    // test3->register_handler(data_Bcallback);
+    // test3->run();
     // std::vector<std::string>test_coll;
 
-    // std::string test ={"R: 345267171171 121.54682821 31.2517907 3.163 152.34 1.362 -0.466"};
-    // test_coll.push_back(test);
+    // std::string test4 ={"R: 345267171171 121.54682821 31.2517907 3.163 152.34 1.362 -0.466"};
+    // test_coll.push_back(test4);
     // std::string test2={"I: 0.0036 0.0013 1.4325 1.4352 0.6312 -9.7999"};
     // test_coll.push_back(test2);
     // std::uint64_t time_stamp;
@@ -277,10 +285,163 @@ int main(int argc, char **argv){
     // std::string strt = getTypeName<DatabasePtr>();
     // std::cout<<strt<<std::endl;
 
-    std::cout<<getTypename<Recorder>()<<std::endl;
-    std::cout<<getTypename<TestEi::Sub::Listener>()<<std::endl;
+
+
+    // int i = 1;
+
+    // auto int_pro = [&](int &data){
+    //     data+=i;
+    // };
+    // auto hate_int = std::make_shared<test_thread::Hate<int>>("int", int_pro, 30);
+
+    // auto float_pro = [&](float &data){
+    //     data+=i;
+    // };
+    // auto hate_float = std::make_shared<test_thread::Hate<float>>("float", float_pro, 500);
+
+    // while(true){
     
-    return 0;
+        
+    //     auto float_data = hate_float->getdata();
+    //     auto int_data = hate_int->getdata();
+    //     std::cout<<i<<"  "<<int_data<<" "<<float_data<<std::endl;
+    //     i++;
+    //     if(i>10) break;
+    // }
+
+    // auto test5 = std::make_shared<Funcpt>(2);
+    // std::cout<<"init data "<<test5->inter_data_->a_copy<<std::endl;
+    // test5.testcall(f11, 2);
+    // test5.testcall(Funcpt::inf_t, 2);
+    // test5->testcall2();
+
+
+    // std::uint32_t data1 = 255;
+    // std::uint32_t data2 = 256;
+    // std::uint32_t data3 = 257;
+    // std::uint32_t data4 = 511;
+    // std::uint32_t data5 = 512;
+    
+    // std::cout<<(data1>>8)<<" "<<(data2>>8)<<" "<<(data3>>8)<<" "<<(data4>>8)<<" "<<(data5>>8)<<std::endl;
+
+    // std::uint64_t data6 = 0b111101010101;
+    // std::uint64_t data9 = 0b10101;
+    // std::uint64_t data7 = (1<<6)-(1<<0);
+    // auto data8 = ((data6 &(data7))>>0);
+    // std::cout<<data6<<" "<<data8<<std::endl;
+    // std::cout<<data9<<std::endl;
+    // auto test6 = std::make_shared<ThreadjoinTest>();
+    // std::cout<<"start init"<<std::endl;
+    // test6->init();
+    // std::cout<<"finish init"<<std::endl;
+
+    // test6->run();
+    // Cantrans test7;
+    // test7.data = 0;
+    // test7.buf[0] = 0xa0;
+    // std::cout<<"test data is "<<test7.data<<std::endl;
+    // std::cout<<std::hex<<" hex is "<<test7.data<<std::endl;
+    // auto *test_data = new std::uint8_t [16]();
+    // memset(test_data,0,16*sizeof(std::uint8_t));
+    // test_data[0] = 0x10;
+    // test_data[1] = 0x01;
+    // test_data[2] = 0xaa;
+    // test_data[3] = 0xbb;
+    // test_data[4] = 0xcc;
+    // test_data[5] = 0xdd;
+
+    // auto test8 = std::make_shared<BinaryFileWrite>("/home/joyson/Desktop/workspace");
+    // test8->chwrite(test_data, 8);
+    // test8->lenWrite(test_data,8);
+    // delete []test_data;
+//     Cantrans input;
+//     std::vector<std::uint8_t>candata;
+//     input.data = 0x6d62ac6bbd111001;
+//     for(int i = 0; i < 8; i++){
+//         candata.emplace_back(input.buf[i]);
+//     }
+//     for(int i=0;i<8;i++){
+//          std::cout<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)candata[i]<<" ";
+//     }
+//     std::cout<<std::defaultfloat<<std::endl;
+
+//     auto raw_u = Canparse::unPackSignal<std::uint32_t>(24, 14, candata);
+
+//     auto raw_f = Canparse::unPackSignal<float>(24, 14, candata, 0, 0.01);
+
+//     auto sign = Canparse::unPackSignal<std::uint8_t>(28, 1, candata);
+
+//     float reserve =(sign == 1)? -1.0: 1.0;
+
+//     auto yaw_rate = Canparse::unPackSignal<float>(24, 14, candata, 0, 0.01 * M_PI/180.0* reserve);
+   
+//    std::cout<<" raw u/f sign yaw_rate "<<raw_u<<" "<<raw_f<<" "<<(uint32_t)sign<<" "<<yaw_rate<<std::endl;
+// std::vector<std::uint8_t>outdata(8,0);
+// Canparse::packSignal(-1.95425, 24, 14, outdata, 0, 0.01*M_PI/180*-1.0);
+// Canparse::packSignal(1, 38, 1, outdata);
+// for(int i = 0; i<8;i++){
+//     std::cout<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)outdata[i]<<" ";
+// }
+// std::cout<<std::defaultfloat<<std::endl;
+   
+//    std::vector<std::uint8_t> test_data(8, 0);
+//    Canparse::packSignal(6.462, 0, 15, test_data, 0, 0.075/3.6);
+//    Canparse::packSignal(1, 15, 1, test_data);
+//    Canparse::packSignal(-6.434, 16, 15, test_data, 0, 0.075/3.6*-1.0);
+//    Canparse::packSignal(0, 31, 1, test_data);
+//    Canparse::packSignal(6.434, 32, 16, test_data, 0, 0.075/3.6);
+//    Canparse::packSignal(6.462, 48, 16, test_data, 0, 0.075/3.6);
+//     for(int i = 0; i<8;i++){
+//     std::cout<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)test_data[i]<<" ";
+//     }
+//     std::cout<<std::dec<<std::defaultfloat<<std::endl;
+//     float fl,fr,rl,rr;
+//     auto fl_sign = Canparse::unPackSignal<uint8_t>(15,1, test_data);
+//     auto fr_sign = Canparse::unPackSignal<uint8_t>(31,1, test_data);
+//     float fl_reserve = (fl_sign == 1)? -1.0 : 1.0;
+//     float fr_reserve = (fr_sign == 1)? -1.0 : 1.0;
+//     fl = Canparse::unPackSignal<float>(0, 15, test_data, 0, 0.075/3.6*fl_reserve);
+//     auto fr_test = Canparse::unPackSignal<float>(16, 16, test_data, 0, 0.075/3.6);
+//     fr = Canparse::unPackSignal<float>(16, 15, test_data, 0, 0.075/3.6*fr_reserve);
+//     rl = Canparse::unPackSignal<float>(32, 16, test_data, 0, 0.075/3.6);
+//     rr = Canparse::unPackSignal<float>(48, 16, test_data, 0, 0.075/3.6);
+//     std::cout<<" fl fr rl rr fr_test"<<fl<<" "<<fr<<" "<<rl<<" "<<rr<<" "<<fr_test<<std::endl;
+
+// auto test_fif = std::make_shared<ReadHexfile>("/home/joyson/docker_data/oem7_headingb.txt");
+// test_fif->getbuf();
+// std::uint64_t before = std::chrono::system_clock::now().time_since_epoch().count();
+// usleep(500000);
+// std::uint64_t after = std::chrono::system_clock::now().time_since_epoch().count();
+// std::cout<<before<<std::endl;
+// std::cout<<after<<std::endl;
+// std::uint8_t rawdata[8] = {0,0,0xe0, 0xa0, 0,0,0,0};
+// int rl = ((int)rawdata[2] >> 4) + ((((int)rawdata[3])& ((1<<5)-1)) << 4);
+// int rr = (((int)rawdata[3]) >> 6)+(((int)rawdata[4]) << 2);
+
+// std::cout<<"rear left/right "<<rl<<" "<<rr<<std::endl;
+
+// std::vector<std::uint8_t>data(8, 0U);
+// float acc , outputacc;
+// std::cin>>acc;
+// CanTrans::packSignal(acc, 16, 11, data, -7.22f, 0.005, true);
+// std::cout<<"origin hex data "<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)data[2]<<" "<<(int)data[3]<<std::endl;
+// outputacc = CanTrans::unPackSignal<float>(16, 11, data, -7.22f, 0.005, true);
+// std::cout<<"ouput signal "<<std::dec<<std::defaultfloat<<outputacc<<std::endl;
+
+uint8_t raw_data[500] = {0};
+std::vector<uint8_t> data_vec;
+std::vector<uint8_t> data_v;
+auto ass_start = std::chrono::steady_clock::now();
+data_vec.assign(&raw_data[0], &raw_data[499]);
+auto middle = std::chrono::steady_clock::now();
+for(int i =0; i<500;i++){
+   data_v.emplace_back(0);
+}
+auto end = std::chrono::steady_clock::now();
+
+auto assign_cost = std::chrono::duration_cast<std::chrono::milliseconds>(middle - ass_start).count();
+
+ return 0;
 }
 
 
