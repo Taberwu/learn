@@ -4,7 +4,12 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/usr/local/include/**"
+                "/usr/local/include/**",
+                "/usr/local/include/eigen3/**",
+                "${workspaceFolder}/Thirdparty/manif/include/**",
+                "${workspaceFolder}/imu_align/include/**",
+                "${workspaceFolder}/Thirdparty/GeographicLib-1.51/include/**",
+                "${workspaceFolder}/Thirdparty/manif/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

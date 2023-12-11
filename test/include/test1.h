@@ -18,7 +18,6 @@
 #include <chrono>
 #include <cmath>
 #include <deque>
-#include <Math.hpp>
 #include <map>
 #include <memory>
 #include <mutex>
@@ -138,15 +137,15 @@ struct RefLine
         return Vec3D{d_xy[0], d_xy[1], 1.0};
     }
 
-    double match(const double x, const double y) const
-    {
-        std::function<double(double)> f_dist = [&](const double s)
-        {
-            const Vec3D pt = this->get_xyz(s);
-            return test::euclDistance(Vec2D{pt[0], pt[1]}, {x, y});
-        };
-        return test::golden_section_search<double>(f_dist, 0.0, this->length_, 1e-2);
-    }
+    // double match(const double x, const double y) const
+    // {
+    //     std::function<double(double)> f_dist = [&](const double s)
+    //     {
+    //         const Vec3D pt = this->get_xyz(s);
+    //         return test::euclDistance(Vec2D{pt[0], pt[1]}, {x, y});
+    //     };
+    //     return test::golden_section_search<double>(f_dist, 0.0, this->length_, 1e-2);
+    // }
 
     Line3D get_line(const double s_start, const double s_end, const double eps) const
     {

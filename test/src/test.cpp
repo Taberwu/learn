@@ -24,15 +24,28 @@
 // #include <test13.hpp>
 // #include <test14.hpp>
 // #include <test15.hpp>
-#include <test16.hpp>
+// #include <test16.hpp>
+// #include <test17.hpp>
+// #include <test18.hpp>
+// #include <test19.hpp>
+// #include <test20.hpp>
+// #include <test21.hpp>
+#include <test22.hpp>
+// #include <test23.hpp> 
+#include <test24.hpp>
+#include <test25.hpp>
+#include <test26.hpp>
+#include <test27.hpp>
+// #include <imu_test.hpp>
+#include "stringtest.hpp"
 #include <random>
 #include <thread>
 #include <chrono>
 #include <sstream>
 #include <iomanip>
 #include <vector>
-
-
+#include <limits>
+#include <rotation.hpp>
 
 // void fun(int &a, int &b){
 //     std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
@@ -58,7 +71,29 @@
 
 // using namespace Test;
 
-int main(int argc, char **argv){
+// template <typename scalar>
+// static Eigen::Quaternion<scalar> eulerAngle2Quaternion(const Eigen::Matrix<scalar, 3, 1>& euler)
+// {
+//     // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles
+//     scalar yaw = euler.z();
+//     scalar pitch = euler.y();
+//     scalar roll = euler.x();
+
+//     scalar cy = std::cos(yaw * 0.5);
+//     scalar sy = std::sin(yaw * 0.5);
+//     scalar cp = std::cos(pitch * 0.5);
+//     scalar sp = std::sin(pitch * 0.5);
+//     scalar cr = std::cos(roll * 0.5);
+//     scalar sr = std::sin(roll * 0.5);
+
+//     scalar w = cy * cp * cr + sy * sp * sr;
+//     scalar x = cy * cp * sr - sy * sp * cr;
+//     scalar y = sy * cp * sr + cy * sp * cr;
+//     scalar z = sy * cp * cr - cy * sp * sr;
+//     return Eigen::Quaternion<scalar>(w, x, y, z);
+// }
+
+int main(int argc, const char *argv[]){
     // auto imuMsg = std::make_shared<LocalizationMessage>();
     // auto rtkMsg = std::make_shared<InspvaMessage>();
     // auto wheMsg = std::make_shared<WheelMessage>() ;
@@ -428,20 +463,354 @@ int main(int argc, char **argv){
 // outputacc = CanTrans::unPackSignal<float>(16, 11, data, -7.22f, 0.005, true);
 // std::cout<<"ouput signal "<<std::dec<<std::defaultfloat<<outputacc<<std::endl;
 
-uint8_t raw_data[500] = {0};
-std::vector<uint8_t> data_vec;
-std::vector<uint8_t> data_v;
-auto ass_start = std::chrono::steady_clock::now();
-data_vec.assign(&raw_data[0], &raw_data[499]);
-auto middle = std::chrono::steady_clock::now();
-for(int i =0; i<500;i++){
-   data_v.emplace_back(0);
-}
-auto end = std::chrono::steady_clock::now();
+// uint8_t raw_data[1500] = {0};
+// std::vector<uint8_t> data_vec;
+// std::vector<uint8_t> data_v;
+// auto ass_start = std::chrono::steady_clock::now();
+// data_vec.assign(&raw_data[0], &raw_data[499]);
+// auto middle = std::chrono::steady_clock::now();
+// for(int i =0; i<1500;i++){
+//    data_v.emplace_back(0);
+// }
+// auto end_time = std::chrono::steady_clock::now();
 
-auto assign_cost = std::chrono::duration_cast<std::chrono::milliseconds>(middle - ass_start).count();
+// auto assign_cost = std::chrono::duration_cast<std::chrono::microseconds>(middle - ass_start).count();
+// auto empalce_cost = std::chrono::duration_cast<std::chrono::microseconds>(end_time - middle).count();
+// printf("empalce %ld - assign %ld= %ld\n", empalce_cost, assign_cost, empalce_cost-assign_cost);
 
- return 0;
+// int pdata[8]={0,1,2,3,4,5,6,7};
+
+// int pp = SevenTeenTest::unPack<int>(6, 8,pdata);
+// std::cout<<"pp "<<pp<<std::endl;
+
+// SevenTeenTest::Signeddata test_signed;
+// test_signed.buffer[0] = 0x09;
+// test_signed.buffer[1] = 0x80;
+// std::cout<<std::dec<<test_signed.s_data<<" "<<test_signed.u_data<<std::endl;
+
+// SevenTeenTest::Transcan test17_1, test17_2;
+// std::cout<<" test init: u_data"<<std::dec<<test17_1.unsigned_data<<" "<<std::hex<<test17_1.unsigned_data<<std::endl;
+// std::cout<<"test init u_8 arrary :";
+// for(int i = 0; i<8;i++ ) 
+//     std::cout<<" "<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)test17_1.buffer[i];
+// std::cout<<std::endl;
+// std::cout<<std::defaultfloat<<"test init bitset"<<test17_1.bit_set<<std::endl;
+
+
+// test17_1.unsigned_data = 519;
+// std::cout<<" test1: u_data"<<std::dec<<test17_1.unsigned_data<<" "<<std::hex<<test17_1.unsigned_data<<std::endl;
+// std::cout<<"test1 u_8 arrary :";
+// for(int i = 0; i<8;i++ ) 
+//     std::cout<<" "<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)test17_1.buffer[i];
+// std::cout<<std::endl;
+// std::cout<<std::defaultfloat<<"test1 bitset"<<test17_1.bit_set<<std::endl;
+
+
+// test17_1.buffer[0] = 7;
+// test17_1.buffer[1] = 2;
+// std::cout<<" test2: u_data"<<std::dec<<test17_1.unsigned_data<<" "<<std::hex<<test17_1.unsigned_data<<std::endl;
+// std::cout<<"test2 u_8 arrary :";
+// for(int i = 0; i<8;i++ ) 
+//     std::cout<<" "<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)test17_1.buffer[i];
+// std::cout<<std::endl;
+// std::cout<<std::defaultfloat<<"test2 bitset"<<test17_1.bit_set<<std::endl;
+
+// test17_2.bit_set.set(9);test17_2.bit_set.set(2);
+// test17_2.bit_set.set(1);test17_2.bit_set.set(0);
+// std::cout<<" test3: u_data"<<std::dec<<test17_2.unsigned_data<<" "<<std::hex<<test17_2.unsigned_data<<std::endl;
+// std::cout<<"test3 u_8 arrary :";
+// for(int i = 0; i<8;i++ ) 
+//     std::cout<<" "<<std::hex<<std::setw(2)<<std::setfill('0')<<(int)test17_2.buffer[i];
+// std::cout<<std::endl;
+// std::cout<<std::defaultfloat<<"test3 bitset"<<test17_2.bit_set<<std::endl;
+
+// std::vector<std::uint8_t> test_data;
+// test_data.assign(8, 0);
+
+// CanTransBit dest_data;
+// float veh_yawrate, veh_velocity, pcan_yawrate, pcan_velocity;
+// packSignal(3.15f, 40, 16, test_data, 0, 0.01/3.6);
+// packSignal(0.0125, 24, 14, test_data, 0, 0.01*M_PI/180.0);
+
+// auto veh_start = std::chrono::steady_clock::now();
+// for(int k =0; k<50000;k++){
+//     veh_yawrate = unPackSignal<float>(24, 14, test_data, 0, 0.01*M_PI/180.0);
+//     veh_velocity =  unPackSignal<float>(40, 16, test_data, 0, 0.01/3.6);
+// }
+// auto middle = std::chrono::steady_clock::now();
+
+// for(int k = 0; k<50000;k++){
+// for(int i = 0;i<8;i++){
+//     dest_data.buffer[i] = test_data[i];
+// }
+// pcan_yawrate = unPackSignalBitset<float>(24, 14, dest_data.bit_set, 0, 0.01*M_PI/180.0);
+// pcan_velocity =  unPackSignalBitset<float>(40, 16, dest_data.bit_set, 0, 0.01/3.6);
+// }
+
+// auto pcan_end = std::chrono::steady_clock::now();
+
+// uint64_t veh_use = std::chrono::duration_cast<std::chrono::microseconds>(middle - veh_start).count();
+// uint64_t pcan_use = std::chrono::duration_cast<std::chrono::microseconds>(pcan_end - middle).count();
+
+// printf("yawrate veh : %.3f  # pcan : %.3f\n", veh_yawrate,pcan_yawrate);
+// printf("velocity veh : %.3f # pcan : %.3f\n",veh_velocity, pcan_velocity);
+// printf("veh use: %lu  # pcan use : %lu  #diff %ld\n",veh_use, pcan_use, (int64_t)(veh_use-pcan_use));
+
+
+// Eigen::Vector3d input = Eigen::Vector3d(3, 1, 0);
+// Eigen::Vector3d euler =  Eigen::Vector3d(0., 0., M_PI_2);
+// Eigen::Quaterniond q = eulerAngle2Quaternion(euler);
+// auto result = q.conjugate() * input;
+// std::cout<<"result"<<std::endl;
+// std::cout<<result<<std::endl;
+// std::cout<<"--------------"<<std::endl;
+// std::cout<<q.conjugate()<<std::endl;
+// std::cout<<q.w()<<std::endl;
+
+// EighteenTest::MemcpyMat mcpy_test;
+
+// mcpy_test.test(6);
+
+/*NighteenTest::SignDataParse parse_test;
+std::uint8_t input[8] = {0};*/
+/* input[0] = 0b00000111;input[1] = 0b10011\
+001;input[2] = 0b11\
+000101;input[3] = 0b00110010;
+input[4] = 0b00\
+000100;input[5] = 0b10001010;input[6] = 0b0\
+0000011;input[7] = 0b00111100;*/
+/*input[0] = 0b11111000;input[1] = 0b01100\ 
+110;input[2] = 0b11\
+111010;input[3] = 0b11001101;
+input[4] = 0b11\
+111011;input[5] = 0b01110101;input[6] = 0b0\
+1111100;input[7] = 0b00111100;
+
+parse_test.parse_candata(&input[0]);*/
+
+// SwitchTesT switch_test;
+// switch_test.Test(1);
+// switch_test.Test(999);
+// switch_test.Test(4);
+// switch_test.Test(2);
+// switch_test.Test(5);
+// switch_test.Test(999);
+// switch_test.Test(8);
+
+
+// GflagsTest flagtest;
+// flagtest.init(argc, argv);
+// flagtest.test();
+
+// Eigen::Quaterniond q(0.578090,-0.024558,0.011323,0.815525);
+// Eigen::Vector3d euler = rotation::quaternion2EeulerAngle(q);
+// euler = 180.f/M_PI * euler;
+// std::cout<<euler<<std::endl;
+
+// Eigen::Vector3d in_euler(0.f, 0.f, 0.126597);
+// in_euler = M_PI/180.f *  in_euler;
+// auto q = rotation::eulerAngle2Quaternion(in_euler);
+// printf("%.7f,%.7f,%.7f,%.7f\n",q.w(),q.x(),q.y(),q.z());
+
+
+// Eigen::Vector3d acc_m (-0.245395410, 0.410674895, 9.780088341);
+// Eigen::Vector3d g(0., 0., -9.79990);
+// auto ba = q.conjugate() * g + acc_m;
+// auto ba2 = q * g +acc_m;
+// std::cout<<"ba:"<<std::endl;
+// std::cout<<ba.transpose()<<std::endl;
+// std::cout<<"ba2:"<<std::endl;
+// std::cout<<ba2.transpose()<<std::endl;
+// Eigen::Vector3d qv(0.0000110,0.0001704,-0.0002541);
+// Eigen::Vector3d input_eler(2.65965,6.33549,-151.62099);
+// input_eler *=M_PI/180.f;
+// auto qd = rotation::eulerAngle2Quaternion(input_eler);
+// auto out_q = qd * rotation::angleAxis2Quaternion(qv);
+// Eigen::Vector3d output_eler = rotation::quaternion2EeulerAngle(out_q);
+// output_eler *= 180.f/M_PI;
+// std::cout<<output_eler<<std::endl;
+
+
+// normtest::SonclassA a(normtest::Baseclass::static_a);
+// normtest::SonclassB b;
+
+// b.set_a(9);
+// a.test();
+// b.test();
+
+// a.set_a(5);
+// a.static_a ++;
+// a.test();
+// normtest::Baseclass::static_a ++;
+// b.test();
+
+// normtest::SonclassB::static_a ++;
+// b.test();
+// b.static_a = 111;
+// a.test();
+
+// Eigen::Vector3d delta_e = Eigen::Vector3d::Zero();
+// delta_e.z() = M_PI / 3.f;
+// maniftest::ManifTest update_test(delta_e);
+// update_test.test();
+
+// std::string true_file("/home/joyson/docker_data/eskf_debug/truth.csv");
+// imu_test::Predictor  pred_test(true_file);
+// pred_test.test();
+// Eigen::Vector3d asix(-0.0001620,-0.00012400046,-1563.00010000010);
+// Eigen::Quaterniond q(manif::exp(manif::SO3Tangentd(asix)).rotation());
+// auto euler = rotation::quaternion2EeulerAngle(q);
+// euler =180.f/M_PI *euler;
+// std::cout<<euler<<std::endl;
+
+// for(int i=0;i<50;i++){
+//     auto pt = Eigen::VectorXd::Random(1)(0);
+//     std::cout<<pt<<std::endl;
+//     usleep(10000);
+// }
+// quetest::EndTest end_test;
+// end_test.test();
+
+// DequeTest deque_test;
+// deque_test.test();
+// Eigen::Vector4d output;
+// Eigen::Vector2d inp1 = Eigen::Vector2d(1., -1.);
+// Eigen::Vector2d inp2 = Eigen::Vector2d(9., -9.);
+// output<<inp1,inp2;
+
+// std::cout<<output.transpose()<<std::endl;
+
+// typedef struct RbgData{
+//     int id;
+//     uint16_t r;
+//     uint16_t b;
+//     RbgData(const int i, const uint16_t red,  const uint16_t blue){
+//         this->id = i;
+//         this->r = red;
+//         this->b = blue;
+//     }
+
+// };
+// std::deque<std::shared_ptr<RbgData>> testdque;
+// testdque.push_back(std::make_shared<RbgData>(1, 255, 0));
+// if(testdque.size()>2){
+//     testdque.erase(testdque.end()-2);
+// }
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+// printf("\n-------------\n");
+
+// auto inp_data = std::make_shared<RbgData>(2, 122, 0);
+// testdque.push_back(inp_data);
+// inp_data = std::make_shared<RbgData>(3, 0,122);
+// testdque.push_back(inp_data);
+// if(testdque.size()>2){
+//     testdque.erase(testdque.end()-2);
+// }
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+// printf("\n-------------\n");
+
+// inp_data = std::make_shared<RbgData>(4, 0,255);
+// testdque.push_back(std::make_shared<RbgData>(*inp_data));
+// auto inp_data2 = std::make_shared<RbgData>(5, 255, 255);
+// testdque.push_back(inp_data2);
+
+// if(testdque.size()>2){
+//     testdque.erase(testdque.end()-2);
+// }
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+// printf("\n-------------\n");
+
+// if(testdque.size()>2){
+//     testdque.erase(testdque.end()-2);
+// }
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+// printf("\n-------------\n");
+
+
+// testdque.push_back(std::make_shared<RbgData>(6, 255, 0));
+// testdque.erase(testdque.end()-2);
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+
+// testdque.push_back(std::make_shared<RbgData>(7, 255, 0));
+// testdque.push_back(std::make_shared<RbgData>(8, 255, 0));
+// printf("\n-------------\n");
+// testdque.erase(testdque.end()-2);
+// for(size_t i=0; i<testdque.size();i++){
+//     printf("%d  ", testdque[i]->id);
+// }
+
+// JMT rrtest;
+// rrtest.test();
+
+// stringtest::Stringcut str_test("/.././docker_data/topic_jsslam/dataset/2023_10_24_14-13-15.bag");
+// str_test.test();
+
+// double stamp_a = 0.;
+
+// double stamp_b = std::numeric_limits<float>::min();
+
+// std::cout<<"float min "<<stamp_b<<std::endl;
+ 
+// double tmp = 0.;
+
+// int compare = (stamp_a == (tmp + stamp_b)? 0 :(stamp_a < (tmp + stamp_b)?1:-1));
+
+// std::cout<<"compare stamp a b "<<compare<<std::endl;
+
+
+
+
+auto euler = Eigen::Vector3d(15., 27., 90.);
+euler = M_PI/180. * euler;
+
+auto gyro = Eigen::Vector3d(0., 45., 15.);
+gyro = M_PI/180. * gyro;
+
+auto d_add = euler + gyro *2.;
+std::cout<<"direct add "<<(180./M_PI * d_add).transpose()<<std::endl;
+
+auto b_anglex = jsos::utility::angleAxis2Quaternion<double>(gyro *2.) * jsos::utility::eulerAngle2Quaternion(euler);
+auto b_euler = jsos::utility::quaternion2EeulerAngle(b_anglex);
+std::cout<<"b add "<<(180./M_PI * b_euler).transpose()<<std::endl;
+// auto after = jsos::utility::angleAxis2Quaternion(Eigen::Vector3d(-0.000157085,0.0000449435,0.00405854)) * jsos::utility::eulerAngle2Quaternion(euler);
+// auto after_euler = jsos::utility::quaternion2EeulerAngle(after);
+
+auto e_anglex = jsos::utility::eulerAngle2Quaternion(euler) * jsos::utility::angleAxis2Quaternion<double>(gyro *2.);
+auto e_euler = jsos::utility::quaternion2EeulerAngle(e_anglex);
+std::cout<<"e add "<<(180./M_PI * e_euler).transpose()<<std::endl;
+
+auto manif_rot = jsos::utility::eulerAngle2Quaternion(euler) * manif::exp(manif::SO3Tangentd(gyro *2.)).rotation();
+auto manif_euler = jsos::utility::quaternion2EeulerAngle(Eigen::Quaterniond(manif_rot));
+std::cout<<"manif add "<<(180./M_PI * manif_euler).transpose()<<std::endl;
+
+Eigen::Matrix<double,3,3> R1, R2, R3;
+R1 << 1.,   0.,     0., 
+      0.,   1.,    0.,
+      0.,   0.,    1.;
+R2 << 1.,    0.,      0.,
+      0.,            1.,      0.,
+      0.,   0.,     1.;
+
+R3 << cos(M_PI/3.),  sin(M_PI/3.),    0.,
+      -1.*sin(M_PI/3.),   cos(M_PI/3.),       0.,
+      0.,             0.,                 1.;
+auto right_matrix_euler = R1*R2*R3*euler;
+std::cout<<"matrix right add "<<(180./M_PI * right_matrix_euler).transpose()<<std::endl;
+
+auto left_matrix_euler = R3*R2*R1*euler;
+std::cout<<"matrix left add "<<(180./M_PI * left_matrix_euler).transpose()<<std::endl;
+return 0;
+
 }
 
 
