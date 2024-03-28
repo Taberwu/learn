@@ -6,7 +6,7 @@ SET(CMAKE_EXE_LINKER_FLAGS "-Wl,-rpath=$ORIGIN")
 
 
 add_subdirectory(test)
-add_subdirectory(imu_align)
+#add_subdirectory(imu_align)
 # add_subdirectory(sp_dr)
 
 

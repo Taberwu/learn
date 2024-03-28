@@ -3,7 +3,7 @@
  * @Author: Taber.wu
  * @Date: 2023-10-27 14:49:06
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-27 15:04:03
+ * @LastEditTime: 2023-12-18 15:47:21
  * @Copyright: 2023 JOYSON CO.,LTD. All Rights Reserved.
  * @Descripttion: 
 ****************************************************************************************/
@@ -23,8 +23,8 @@ namespace jsos{
         while(std::getline(datafile_, buff)){
             ImuData imu_data;
             std::stringstream ss(buff);
-            ss >> imu_data.timestamp >> imu_data.acce.x() >> imu_data.acce.y() >> imu_data.acce.z()
-               >> imu_data.gyro.x() >> imu_data.gyro.y() >> imu_data.gyro.z();
+            ss >> imu_data.timestamp >> imu_data.gyro.x() >> imu_data.gyro.y() >> imu_data.gyro.z()
+               >> imu_data.acce.x() >> imu_data.acce.y() >> imu_data.acce.z();
             auto data = std::make_shared<ImuData>(imu_data);
             imudatas.push_back(data);
             buff.clear();

@@ -13,6 +13,12 @@
 #include <test2.h>
 #include <test3.h>
 #include <test4.h>
+#include <cmath>
+#include <caculateFH.hpp>
+// #include <restart_thread.hpp>
+// #include <stl_eigen_test.hpp>
+// #include <bind_test.hpp>
+// #include <ptr_test.hpp>
 // #include <test5.h>
 // #include <test6.h>
 // #include <test7.h>
@@ -46,6 +52,10 @@
 #include <vector>
 #include <limits>
 #include <rotation.hpp>
+// #include <vector_insert.hpp>
+// #include <vel_rotation.hpp>
+#include <strstream.hpp>
+#include <typetest.hpp>
 
 // void fun(int &a, int &b){
 //     std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
@@ -770,45 +780,140 @@ parse_test.parse_candata(&input[0]);*/
 
 
 
-auto euler = Eigen::Vector3d(15., 27., 90.);
-euler = M_PI/180. * euler;
+// auto euler = Eigen::Vector3d(15., 27., 90.);
+// euler = M_PI/180. * euler;
 
-auto gyro = Eigen::Vector3d(0., 45., 15.);
-gyro = M_PI/180. * gyro;
+// auto gyro = Eigen::Vector3d(0., 45., 15.);
+// gyro = M_PI/180. * gyro;
 
-auto d_add = euler + gyro *2.;
-std::cout<<"direct add "<<(180./M_PI * d_add).transpose()<<std::endl;
+// auto d_add = euler + gyro *2.;
+// std::cout<<"direct add "<<(180./M_PI * d_add).transpose()<<std::endl;
 
-auto b_anglex = jsos::utility::angleAxis2Quaternion<double>(gyro *2.) * jsos::utility::eulerAngle2Quaternion(euler);
-auto b_euler = jsos::utility::quaternion2EeulerAngle(b_anglex);
-std::cout<<"b add "<<(180./M_PI * b_euler).transpose()<<std::endl;
-// auto after = jsos::utility::angleAxis2Quaternion(Eigen::Vector3d(-0.000157085,0.0000449435,0.00405854)) * jsos::utility::eulerAngle2Quaternion(euler);
-// auto after_euler = jsos::utility::quaternion2EeulerAngle(after);
+// auto b_anglex = jsos::utility::angleAxis2Quaternion<double>(gyro *2.) * jsos::utility::eulerAngle2Quaternion(euler);
+// auto b_euler = jsos::utility::quaternion2EeulerAngle(b_anglex);
+// std::cout<<"b add "<<(180./M_PI * b_euler).transpose()<<std::endl;
+// // auto after = jsos::utility::angleAxis2Quaternion(Eigen::Vector3d(-0.000157085,0.0000449435,0.00405854)) * jsos::utility::eulerAngle2Quaternion(euler);
+// // auto after_euler = jsos::utility::quaternion2EeulerAngle(after);
 
-auto e_anglex = jsos::utility::eulerAngle2Quaternion(euler) * jsos::utility::angleAxis2Quaternion<double>(gyro *2.);
-auto e_euler = jsos::utility::quaternion2EeulerAngle(e_anglex);
-std::cout<<"e add "<<(180./M_PI * e_euler).transpose()<<std::endl;
+// auto e_anglex = jsos::utility::eulerAngle2Quaternion(euler) * jsos::utility::angleAxis2Quaternion<double>(gyro *2.);
+// auto e_euler = jsos::utility::quaternion2EeulerAngle(e_anglex);
+// std::cout<<"e add "<<(180./M_PI * e_euler).transpose()<<std::endl;
 
-auto manif_rot = jsos::utility::eulerAngle2Quaternion(euler) * manif::exp(manif::SO3Tangentd(gyro *2.)).rotation();
-auto manif_euler = jsos::utility::quaternion2EeulerAngle(Eigen::Quaterniond(manif_rot));
-std::cout<<"manif add "<<(180./M_PI * manif_euler).transpose()<<std::endl;
+// auto manif_rot = jsos::utility::eulerAngle2Quaternion(euler) * manif::exp(manif::SO3Tangentd(gyro *2.)).rotation();
+// auto manif_euler = jsos::utility::quaternion2EeulerAngle(Eigen::Quaterniond(manif_rot));
+// std::cout<<"manif add "<<(180./M_PI * manif_euler).transpose()<<std::endl;
 
-Eigen::Matrix<double,3,3> R1, R2, R3;
-R1 << 1.,   0.,     0., 
-      0.,   1.,    0.,
-      0.,   0.,    1.;
-R2 << 1.,    0.,      0.,
-      0.,            1.,      0.,
-      0.,   0.,     1.;
+// Eigen::Matrix<double,3,3> R1, R2, R3;
+// R1 << 1.,   0.,     0., 
+//       0.,   1.,    0.,
+//       0.,   0.,    1.;
+// R2 << 1.,    0.,      0.,
+//       0.,            1.,      0.,
+//       0.,   0.,     1.;
 
-R3 << cos(M_PI/3.),  sin(M_PI/3.),    0.,
-      -1.*sin(M_PI/3.),   cos(M_PI/3.),       0.,
-      0.,             0.,                 1.;
-auto right_matrix_euler = R1*R2*R3*euler;
-std::cout<<"matrix right add "<<(180./M_PI * right_matrix_euler).transpose()<<std::endl;
+// R3 << cos(M_PI/3.),  sin(M_PI/3.),    0.,
+//       -1.*sin(M_PI/3.),   cos(M_PI/3.),       0.,
+//       0.,             0.,                 1.;
+// auto right_matrix_euler = R1*R2*R3*euler;
+// std::cout<<"matrix right add "<<(180./M_PI * right_matrix_euler).transpose()<<std::endl;
 
-auto left_matrix_euler = R3*R2*R1*euler;
-std::cout<<"matrix left add "<<(180./M_PI * left_matrix_euler).transpose()<<std::endl;
+// auto left_matrix_euler = R3*R2*R1*euler;
+// std::cout<<"matrix left add "<<(180./M_PI * left_matrix_euler).transpose()<<std::endl;
+
+
+// Eigen::Vector3d acce_mean(0.5, sqrt(3)/2., 0);
+// Eigen::Vector3d gravity (0., 0., 1.);
+// auto tmp_q = Eigen::Quaterniond::FromTwoVectors(acce_mean.normalized(), gravity.normalized());
+// auto euler = jsos::utility::quaternion2EeulerAngle(tmp_q);
+// euler = 180./M_PI * euler;
+// std::cout<<"res1: "<<euler.transpose()<<std::endl;
+// auto acce_b = Eigen::Vector3d(0.1, sqrt(3)/2., 0);
+// auto tmp_qb = Eigen::Quaterniond::FromTwoVectors(acce_b.normalized(), gravity.normalized());
+// euler = jsos::utility::quaternion2EeulerAngle(tmp_qb);
+// euler = 180./M_PI * euler;
+// std::cout<<"res2: "<<euler.transpose()<<std::endl;
+
+
+// Eigen::Vector3d euler(0., 0., 90.);
+// Eigen::Vector3d omega(300., 900., 10.);
+// euler =M_PI/180. * euler; omega = M_PI/180. * omega;
+// double delat_time = 0.1;
+// Eigen::Vector3d delta_theta = delat_time * omega;
+// Eigen::Quaterniond start_pose = jsos::utility::eulerAngle2Quaternion(euler);
+// auto jsos_q = start_pose * jsos::utility::angleAxis2Quaternion(delta_theta) ;
+// auto jsos_e = jsos::utility::quaternion2EeulerAngle(jsos_q);
+// std::cout<<"jsos angle:  " <<(180./M_PI * jsos_e).transpose()<<std::endl;
+
+// double sita0 = omega.norm() * delat_time;
+// Eigen::Matrix<double, 4, 1> ztia;
+
+// ztia(0) = cos(euler.z()/2.0)*cos(euler.x()/2.0)*cos(euler.y()/2.0)-sin(euler.z()/2.0)*sin(euler.x()/2.0)*sin(euler.y()/2.0);
+// ztia(1) = cos(euler.z()/2.0)*sin(euler.x()/2.0)*cos(euler.y()/2.0)-sin(euler.z()/2.0)*cos(euler.x()/2.0)*sin(euler.y()/2.0);
+// ztia(2) = cos(euler.z()/2.0)*cos(euler.x()/2.0)*sin(euler.y()/2.0)+sin(euler.z()/2.0)*sin(euler.x()/2.0)*cos(euler.y()/2.0);
+// ztia(3) = cos(euler.z()/2.0)*sin(euler.x()/2.0)*sin(euler.y()/2.0)+sin(euler.z()/2.0)*cos(euler.x()/2.0)*cos(euler.y()/2.0);
+
+// Eigen::Matrix<double, 4, 4> sita;
+// sita << 0.,             -1. * delta_theta.x(),  -1. * delta_theta.y(),  -1. * delta_theta.z(),
+//         delta_theta.x(), 0.,                    delta_theta.z(),        -1. * delta_theta.y(),
+//         delta_theta.y(),-1. * delta_theta.z(),  0.,                     delta_theta.x(),
+//         delta_theta.z(),delta_theta.y(),        -1. * delta_theta.x(),  0.;
+
+// ztia = (cos(sita0/2.)*Eigen::Matrix4d::Identity() + sin(sita0/2.)/sita0 * sita) * ztia;
+// ztia.normalize();
+// Eigen::Quaterniond sinout_q;
+// sinout_q.w() = ztia.x(); sinout_q.x() = ztia.y();sinout_q.y() = ztia.z(); sinout_q.z() = ztia.w();
+// auto sinout_e = jsos::utility::quaternion2EeulerAngle(sinout_q);
+// std::cout<<" sinout angle: "<<(180./M_PI * sinout_e).transpose()<<std::endl;
+// Eigen::Vector3d euler = Eigen::Vector3d(0., 0., 1.8);
+// euler = M_PI/180. * euler;
+// Eigen::Quaterniond rot = jsos::utility::eulerAngle2Quaternion(euler);
+// double  degree = 2. * std::acos(rot.w()) *180./M_PI;
+// printf("[%.7f %.7f %.7f %.7f]   %.7f\n", rot.w(), rot.x(), rot.y(), rot.z(), degree);
+
+// InsertTest insert_test;
+// insert_test.test(6,16);
+// insert_test.test3();
+
+// PtrTest ptr_test;
+// ptr_test.test();
+
+// VelRotation vel_rot_test;
+// vel_rot_test.test();
+
+// enum Action{
+//     Eat = 0,
+//     Sleep = 1,
+//     Die = 2,
+// };
+
+// Action P1 = Action::Sleep;
+
+// int a = !!(P1 == Action::Sleep);
+// int b = !(P1 == Action::Sleep);
+// int c = !!(P1 == Action::Die);
+// printf("%d   %d   %d\n", a, b, c);
+
+
+// caculateFH::FHTest fh_test;
+// fh_test.FTest();
+// fh_test.HTset();
+// threadtest::RestartThread restart_test;
+// restart_test.test();
+
+
+// strsstream::Sstm sstest;
+// sstest.test();
+
+
+// stleigen::StlEigen stl_eigen_test;
+// stl_eigen_test.test();
+
+// bindtest::BindTest b_test;
+// b_test.test2(66);
+
+
+
+
 return 0;
 
 }

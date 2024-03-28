@@ -3,7 +3,7 @@
  * @Author: Taber.wu
  * @Date: 2023-10-19 11:05:08
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2023-10-20 15:38:32
+ * @LastEditTime: 2024-01-26 11:31:24
  * @Copyright: 2023 JOYSON CO.,LTD. All Rights Reserved.
  * @Descripttion: 
 ****************************************************************************************/
@@ -28,6 +28,9 @@ public:
     Alignment(const Eigen::Vector3d &origin_lla);
     virtual ~Alignment() = default;
     void coarseAlign(const std::deque<std::shared_ptr<ImuData>> &data, Eigen::Vector3d &euler,
+                    Eigen::Quaterniond &rot);
+
+    void kalman_optimate(const std::deque<std::shared_ptr<ImuData>> &data, Eigen::Vector3d &euler,
                     Eigen::Quaterniond &rot);
 
 private:

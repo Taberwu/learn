@@ -64,33 +64,15 @@ CMAKE_BINARY_DIR = /home/joyson/Desktop/workspace/learn/build
 
 # The main recursive "all" target.
 all: test/all
-all: imu_align/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: test/preinstall
-preinstall: imu_align/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: test/clean
-clean: imu_align/clean
 .PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory imu_align
-
-# Recursive "all" directory target.
-imu_align/all: imu_align/CMakeFiles/imu_align.dir/all
-.PHONY : imu_align/all
-
-# Recursive "preinstall" directory target.
-imu_align/preinstall:
-.PHONY : imu_align/preinstall
-
-# Recursive "clean" directory target.
-imu_align/clean: imu_align/CMakeFiles/imu_align.dir/clean
-.PHONY : imu_align/clean
 
 #=============================================================================
 # Directory level rules for directory test
@@ -132,32 +114,6 @@ code_test: test/CMakeFiles/code_test.dir/rule
 test/CMakeFiles/code_test.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/code_test.dir/build.make test/CMakeFiles/code_test.dir/clean
 .PHONY : test/CMakeFiles/code_test.dir/clean
-
-#=============================================================================
-# Target rules for target imu_align/CMakeFiles/imu_align.dir
-
-# All Build rule for target.
-imu_align/CMakeFiles/imu_align.dir/all:
-	$(MAKE) $(MAKESILENT) -f imu_align/CMakeFiles/imu_align.dir/build.make imu_align/CMakeFiles/imu_align.dir/depend
-	$(MAKE) $(MAKESILENT) -f imu_align/CMakeFiles/imu_align.dir/build.make imu_align/CMakeFiles/imu_align.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/joyson/Desktop/workspace/learn/build/CMakeFiles --progress-num=42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83 "Built target imu_align"
-.PHONY : imu_align/CMakeFiles/imu_align.dir/all
-
-# Build rule for subdir invocation for target.
-imu_align/CMakeFiles/imu_align.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/joyson/Desktop/workspace/learn/build/CMakeFiles 42
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 imu_align/CMakeFiles/imu_align.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/joyson/Desktop/workspace/learn/build/CMakeFiles 0
-.PHONY : imu_align/CMakeFiles/imu_align.dir/rule
-
-# Convenience name for target.
-imu_align: imu_align/CMakeFiles/imu_align.dir/rule
-.PHONY : imu_align
-
-# clean rule for target.
-imu_align/CMakeFiles/imu_align.dir/clean:
-	$(MAKE) $(MAKESILENT) -f imu_align/CMakeFiles/imu_align.dir/build.make imu_align/CMakeFiles/imu_align.dir/clean
-.PHONY : imu_align/CMakeFiles/imu_align.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
