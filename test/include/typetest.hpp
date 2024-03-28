@@ -73,7 +73,7 @@ public:
     template <typename MsgGetTime, typename ...OtherMsgGetTime>
     void setMsgTimestampFunction(const MsgGetTime& get_time, const OtherMsgGetTime&... other_gettime){
         inter_setMsgTimestampFunction(get_time);
-        registerGetMsgTimestampFunction(other_gettime...);
+        setMsgTimestampFunction(other_gettime...);
     }
     template <typename MsgGetTime>
     void setMsgTimestampFunction(const MsgGetTime& get_time){
@@ -88,10 +88,10 @@ public:
             return false;
         }
         std::uint64_t stamp = timestamp_func_map_[type_name](msg);
-        if((pos > msg_type_.size() -1) || (type_name != msg_type_[pos])){
-            printf("pos %d type not fix\n", pos);
-            return false;
-        }
+        // if((pos > msg_type_.size() -1) || (type_name != msg_type_[pos])){
+        //     printf("pos %d type not fix\n", pos);
+        //     return false;
+        // }
         std::unique_lock locker(locker_);
         ds_[pos].emplace_back(std::make_pair(stamp, msg));
         return true;
@@ -100,17 +100,24 @@ public:
         handler_ = callback;
     }
 
+    void test(){
+        printf("ds_ size %lu\n", ds_.size());
+        for(size_t k =0; k<ds_.size(); k++){
+            printf("%lu stamp %lu\n", k, ds_[k].front().first);
+        }
+    }
+
 protected:
    
 
     template <typename MsgType>
-    void inter_setMsgTimestampFunction(std::function<std::uint64_t(const std::shared_ptr<MsgType>)> &get_timestamp){
+    void inter_setMsgTimestampFunction(const std::function<std::uint64_t(const std::shared_ptr<MsgType>)> &get_timestamp){
         std::string type_name = typeid(MsgType).name();
         auto func = std::make_shared<std::any>(std::any_cast<std::function<std::uint64_t(const std::shared_ptr<MsgType>)>>(get_timestamp));
         timestamp_func_map_.insert(std::make_pair(type_name, func));
     }
    
-   template <typename MsgType, typename ...OtherTypeMsg>
+//    template <typename MsgType, typename ...OtherTypeMsg>
   
    
    void reduceTo(int index, std::uint64_t timestamp)
@@ -120,14 +127,14 @@ protected:
             datas.pop_front();
         }
     }
-    virtual void dataready() = 0;
+    // virtual void dataready() = 0;
 
 private:
     std::shared_mutex locker_;
     StampFuncTypeMap timestamp_func_map_;
     DataDequeType ds_;
     size_t sync_num_;
-    
+    std::vector<std::string> msg_type_;
     std::function<void(const MsgsType&...)> handler_;
 };
 

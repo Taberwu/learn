@@ -911,9 +911,25 @@ parse_test.parse_candata(&input[0]);*/
 // bindtest::BindTest b_test;
 // b_test.test2(66);
 
+using Msg1 = tamplate_func::Imu;
+using Msg2 = tamplate_func::Image;
+using Msg3 = std::shared_ptr<tamplate_func::Imu>;
+using Msg4 = tamplate_func::Wheel;
+tamplate_func::MutableSynchronizer<Msg1, Msg2, Msg3, Msg4> sync_test;
+sync_test.setMsgTimestampFunction([&](const std::shared_ptr<Msg1> msg1)->std::uint64_t{return msg1->stamp;},
+                                  [&](const std::shared_ptr<Msg2> msg2)->std::uint64_t{return msg2->header.stamp;},
+                                  [&](const std::shared_ptr<Msg3> msg3)->std::uint64_t{return (*msg3)->stamp;},
+                                  [&](const std::shared_ptr<Msg4> msg4)->std::uint64_t{return msg4->pair_head.second;});
 
-
-
+auto msg1_data1 = std::make_shared<Msg1>(11U);
+auto msg2_data1 = std::make_shared<Msg2>(22U);
+auto msg3_data1 = std::make_shared<Msg3>(std::make_shared<Msg1>(31U));
+auto msg4_data1 = std::make_shared<Msg4>(44U);
+sync_test.insert<0>(msg1_data1);
+sync_test.insert<1>(msg2_data1);
+sync_test.insert<2>(msg3_data1);
+sync_test.insert<3>(msg4_data1);
+sync_test.test();
 return 0;
 
 }
