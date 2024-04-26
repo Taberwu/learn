@@ -3,10 +3,11 @@
  * @Author: Taber.wu
  * @Date: 2024-03-28 10:00:42
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-03-28 18:12:26
+ * @LastEditTime: 2024-04-26 11:02:57
  * @Copyright: 2024 JOYSON CO.,LTD. All Rights Reserved.
  * @Descripttion: 
 ****************************************************************************************/
+#if 0
 #ifndef _TSET_TYPS_ID_HPP___
 #define _TSET_TYPS_ID_HPP___
 #include <type_traits>
@@ -140,4 +141,5 @@ private:
 
 
 }
+#endif
 #endif

@@ -15,6 +15,7 @@
 #include <test4.h>
 #include <cmath>
 #include <caculateFH.hpp>
+#include <cacalute.hpp>
 // #include <restart_thread.hpp>
 // #include <stl_eigen_test.hpp>
 // #include <bind_test.hpp>
