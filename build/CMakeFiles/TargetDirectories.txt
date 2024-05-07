@@ -1,5 +1,5 @@
-/home/wyy/Desktop/develop/learn/build/CMakeFiles/rebuild_cache.dir
-/home/wyy/Desktop/develop/learn/build/CMakeFiles/edit_cache.dir
-/home/wyy/Desktop/develop/learn/build/test/CMakeFiles/rebuild_cache.dir
-/home/wyy/Desktop/develop/learn/build/test/CMakeFiles/edit_cache.dir
-/home/wyy/Desktop/develop/learn/build/test/CMakeFiles/code_test.dir
+/home/joyson/Desktop/workspace/learn/build/CMakeFiles/edit_cache.dir
+/home/joyson/Desktop/workspace/learn/build/CMakeFiles/rebuild_cache.dir
+/home/joyson/Desktop/workspace/learn/build/test/CMakeFiles/code_test.dir
+/home/joyson/Desktop/workspace/learn/build/test/CMakeFiles/edit_cache.dir
+/home/joyson/Desktop/workspace/learn/build/test/CMakeFiles/rebuild_cache.dir

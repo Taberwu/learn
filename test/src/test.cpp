@@ -912,25 +912,28 @@ parse_test.parse_candata(&input[0]);*/
 // bindtest::BindTest b_test;
 // b_test.test2(66);
 
-using Msg1 = tamplate_func::Imu;
-using Msg2 = tamplate_func::Image;
-using Msg3 = std::shared_ptr<tamplate_func::Imu>;
-using Msg4 = tamplate_func::Wheel;
-tamplate_func::MutableSynchronizer<Msg1, Msg2, Msg3, Msg4> sync_test;
-sync_test.setMsgTimestampFunction([&](const std::shared_ptr<Msg1> msg1)->std::uint64_t{return msg1->stamp;},
-                                  [&](const std::shared_ptr<Msg2> msg2)->std::uint64_t{return msg2->header.stamp;},
-                                  [&](const std::shared_ptr<Msg3> msg3)->std::uint64_t{return (*msg3)->stamp;},
-                                  [&](const std::shared_ptr<Msg4> msg4)->std::uint64_t{return msg4->pair_head.second;});
+// {
+//     std::vector<cal::DataWY> data_source;
+//     Eigen::Vector3d ex_t (2, 1, 0.);
+//     Eigen::Quaterniond ex_q(1, 0., 0., 0);
+//     data_source.push_back(cal::DataWY(Eigen::Vector3d(0, 0, 0.), Eigen::Vector3d(0, 0,0.),ex_t, 0, 0,ex_q));
+//     data_source.push_back(cal::DataWY(Eigen::Vector3d(4, 0, 0.), Eigen::Vector3d(4, 0,0.),ex_t, 0, 0,ex_q));
+//     data_source.push_back(cal::DataWY(Eigen::Vector3d(1, 1, 0.), Eigen::Vector3d(4, 0,0.),ex_t, 90, 90,ex_q));
+//     data_source.push_back(cal::DataWY(Eigen::Vector3d(1, 5, 0.), Eigen::Vector3d(4, 4,0.),ex_t, 90, 90,ex_q));
+//     data_source.push_back(cal::DataWY(Eigen::Vector3d(0, 2, 0.), Eigen::Vector3d(4, 4,0.),ex_t, 180, 180,ex_q));
+//     for(size_t i = 0; i < data_source.size(); i++){
+//         cal::Result::test(data_source[i].s_w_ex_t, data_source[i].s_w_ex_q);
+//     }
+// }
 
-auto msg1_data1 = std::make_shared<Msg1>(11U);
-auto msg2_data1 = std::make_shared<Msg2>(22U);
-auto msg3_data1 = std::make_shared<Msg3>(std::make_shared<Msg1>(31U));
-auto msg4_data1 = std::make_shared<Msg4>(44U);
-sync_test.insert<0>(msg1_data1);
-sync_test.insert<1>(msg2_data1);
-sync_test.insert<2>(msg3_data1);
-sync_test.insert<3>(msg4_data1);
-sync_test.test();
+std::uint64_t test_data = 0b10001101;
+for(int i = 0; i < 8; i++){
+    int k = ((test_data >> i) & (0b01));
+    printf("%d: k %d \n", i, k);
+}
+
+printf("test_data %lu\n", test_data);
+
 return 0;
 
 }
