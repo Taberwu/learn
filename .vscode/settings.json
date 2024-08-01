@@ -76,6 +76,10 @@
         "future": "cpp",
         "eigen": "cpp",
         "valarray": "cpp",
-        "*.inc": "cpp"
+        "*.inc": "cpp",
+        "*.ipp": "cpp",
+        "geometry": "cpp",
+        "charconv": "cpp",
+        "codecvt": "cpp"
     }
 }

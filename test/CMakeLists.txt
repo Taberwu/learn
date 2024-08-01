@@ -32,10 +32,12 @@ set(EIGEN3_INCLUDE_DIR "/usr/local/include/eigen3")
 set(OpenCV_Dir "/usr/local/lib/cmake/opencv4")
 find_package(OpenCV REQUIRED)
 message(STATUS "======= ${OpenCV_INCLUDE_DIRS}")
+find_package(Boost  REQUIRED)
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
   ${EIGEN3_INCLUDE_DIR}
   ${OpenCV_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
   ${CMAKE_CURRENT_SOURCE_DIR}/../Thirdparty
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
   ${CMAKE_CURRENT_SOURCE_DIR}/../Thirdparty/GeographicLib-1.51/include/
@@ -54,6 +56,6 @@ file(GLOB_RECURSE  SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/../Thirdparty/pugixm
 add_executable(code_test ${CMAKE_CURRENT_SOURCE_DIR}/src/test.cpp
                           ${HEAD_FILE}
                           ${SOURCE_FILES})
-target_link_libraries(code_test ${OpenCV_LIBS} -pthread -fPIC gflags)
+target_link_libraries(code_test ${OpenCV_LIBS} ${Boost_LIBRARIES} -pthread -fPIC )
 
 

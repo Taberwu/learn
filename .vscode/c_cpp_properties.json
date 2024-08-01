@@ -9,7 +9,8 @@
                 "${workspaceFolder}/Thirdparty/manif/include/**",
                 "${workspaceFolder}/imu_align/include/**",
                 "${workspaceFolder}/Thirdparty/GeographicLib-1.51/include/**",
-                "${workspaceFolder}/Thirdparty/manif/include/**"
+                "${workspaceFolder}/Thirdparty/manif/include/**",
+                "/usr/include/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

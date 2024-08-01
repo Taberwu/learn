@@ -16,6 +16,9 @@
 #include <cmath>
 #include <caculateFH.hpp>
 #include <cacalute.hpp>
+// #include <fucntion_bind.hpp>
+#include <GeographicLib/LocalCartesian.hpp>
+#include <rtree_test.hpp>
 // #include <restart_thread.hpp>
 // #include <stl_eigen_test.hpp>
 // #include <bind_test.hpp>
@@ -37,14 +40,14 @@
 // #include <test19.hpp>
 // #include <test20.hpp>
 // #include <test21.hpp>
-#include <test22.hpp>
+// #include <test22.hpp>
 // #include <test23.hpp> 
-#include <test24.hpp>
-#include <test25.hpp>
-#include <test26.hpp>
-#include <test27.hpp>
+// #include <test24.hpp>
+// #include <test25.hpp>
+// #include <test26.hpp>
+// #include <test27.hpp>
 // #include <imu_test.hpp>
-#include "stringtest.hpp"
+// #include "stringtest.hpp"
 #include <random>
 #include <thread>
 #include <chrono>
@@ -56,8 +59,12 @@
 // #include <vector_insert.hpp>
 // #include <vel_rotation.hpp>
 #include <strstream.hpp>
-#include <typetest.hpp>
+// #include <typetest.hpp>
+// #include <convert_test.hpp>
+// #include <map_test.hpp>
+// #include <sharepttest.hpp>
 
+#include "manifcalcu.hpp"
 // void fun(int &a, int &b){
 //     std::cout<<"a ,b ("<<a<<","<<b<<")"<<std::endl;
 // }
@@ -926,13 +933,78 @@ parse_test.parse_candata(&input[0]);*/
 //     }
 // }
 
-std::uint64_t test_data = 0b10001101;
-for(int i = 0; i < 8; i++){
-    int k = ((test_data >> i) & (0b01));
-    printf("%d: k %d \n", i, k);
-}
+// std::uint64_t test_data = 0b10001101;
+// for(int i = 0; i < 8; i++){
+//     int k = ((test_data >> i) & (0b01));
+//     printf("%d: k %d \n", i, k);
+// }
 
-printf("test_data %lu\n", test_data);
+// printf("test_data %lu\n", test_data);
+
+// {
+//     function::FunBind func;
+//     func.test();
+//     func.test2();
+// }
+
+// {
+//     uint64_t data = 0b1111101000;
+//     auto result = data;
+//     result |= 0b11;
+//     std::cout<<std::oct<< data<<"   "<<result<<std::endl;
+//     std::cout<<std::dec<< data<<"   "<<result<<std::endl;
+// }
+
+// {
+//     std::string path ="./joyson/../docker//joyson_apa/devel/set.up.bag";
+//     size_t pos = path.find_last_of('/');
+//     std::string name = path.substr(pos+1);
+//     std::cout<<"  first   "<<name<<std::endl;
+//     pos = name.find_last_of('.');
+//     name = name.substr(0, pos);
+//     std::cout<<"  second "<<name<<std::endl;
+
+// }
+
+// {
+//     auto  loc_cartesian = std::make_shared<GeographicLib::LocalCartesian>(31., 121., 0., GeographicLib::Geocentric::WGS84());
+//     double x, y, h = 3.;
+//     loc_cartesian->Reset(31.0702648053, 121.363024331, 4.94393733896);
+//     loc_cartesian->Forward(31.0701860983, 121.362925955,4.99269809108, x, y, h);
+//     printf("[%.5f %.5f %.5f]\n", y,x,h);
+// }
+
+// {
+//     convert::Datatrans trans;
+//     trans.test();
+// }
+
+// {
+//     maptest::MapTest test;
+//     test.test();
+// }
+
+// {
+//     Eigen::Quaterniond q(0.8512761, 0.4062648, 0.3156692, 0.1031061);
+//     auto euler = jsos::utility::quaternion2EeulerAngle(q);
+//     euler = 180/M_PI * euler;
+//     std::cout<<euler.transpose()<<std::endl;
+// }
+
+// {
+//     dequetest::DeqPtr dque_test;
+//     dque_test.test2();
+// }
+
+// {
+//     manifcalcu::ManifTest mtest;
+//     mtest.actTest();
+// }
+
+{
+    rtree::RtreeTest r_test;
+    r_test.collisioncheck();
+}
 
 return 0;
 
