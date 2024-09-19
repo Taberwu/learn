@@ -1,0 +1,80 @@
+/*
+ * @FilePath: cpp
+ * @Author: Taberwu
+ * @Version: 2.0
+ * @Date: 2024-09-05 20:00:49
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2024-09-19 19:43:01
+ * Copyright: 2024 Taberwu. All Rights Reserved.
+ * @Descripttion: 
+ */
+#include <vector>
+
+struct DataA{
+    std::uint64_t stamp;
+    int data_a;
+};
+
+struct DataB{
+    std::uint64_t stamp;
+    int data_b;
+};
+
+bool syncDatas(const std::vector<DataA>& data_as,  const std::vector<DataB>& data_bs, std::vector<DataB>& result){
+
+    result.clear();
+    if(data_bs.size() < 1 || data_as.front().stamp >  data_bs.back().stamp || data_as.back().stamp < data_bs.front().stamp)
+         return false;
+    size_t idx_b = 0;
+    for(auto data_a : data_as){
+        for(;idx_b < data_bs.size(); idx_b++){
+            if(data_bs[idx_b].stamp >= data_a.stamp){
+                result.push_back(data_bs[idx_b]);
+                idx_b++;
+                break;
+            }
+        }
+    }
+    if(result.size() != data_as.size()) return false;
+    return true;
+    
+}
+
+struct City{
+ std::string name;
+ std::vecror<std::shared_ptr<City>> next;
+};
+
+void getPath(const std::map<std::string, City>&map; const std::string begin, const std::string end,std::vector<std::vector<std::string>>& paths )
+{
+    paths.clear();
+    if(map.find(begin) == map.end() || map.find(end) ==map.end())
+        return;
+    for(auto next_city : map[begin].next){
+        std::vector<std::string> reseve_path;
+        if(searchPath(map, next_city->name, end, reseve_path)){
+           std::vector<std:;string> path(1, begin);
+           path.insert(reseve_path.rbegin(). reseve_path.rend());
+           paths.push_back(path);
+        }
+        
+    }
+    
+}
+
+bool searchPath(const std::map<std::string, City>&map; const std::string begin, const std::string end, std::vector<std::string>&path)
+{
+    if(begin == end()){
+        return true;
+    }
+       for(auto next_city : map[begin].next){
+        if(searchPath(map, next_city->name, end, path)){
+            path.push_back(next_city->name);
+        }
+       }
+       return false;
+
+}
+
+
+

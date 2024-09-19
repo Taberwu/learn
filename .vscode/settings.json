@@ -80,6 +80,7 @@
         "*.ipp": "cpp",
         "geometry": "cpp",
         "charconv": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "cpp": "c"
     }
 }
