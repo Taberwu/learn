@@ -4,7 +4,7 @@
  * @Version: 2.0
  * @Date: 2024-09-19 19:43:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-09-26 19:00:59
+ * @LastEditTime: 2024-09-27 18:18:13
  * Copyright: 2024 Taberwu. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -183,32 +183,26 @@ libjsslam 定位算法代码仓库
         声明 特征检测(solve) 和 金字塔(pyramid) 接口
          </td>
     </tr>
-    <tr >
-     <td> apriltag_extractor.h</td>
+    <tr ><td> apriltag_extractor.h</td>
         <td> apriiltag 特征识别(用于相机内参标定)<br>
          参考AprilTag <a href="https://blog.csdn.net/wangmj_hdu/article/details/111233878" target="_blank" rel="noopener noreferrer">论文实现链接</a></td>
     </tr>
-     <tr >
-     <td> orb_extractor.h(对比测试)</td>
+     <tr ><td> orb_extractor.h(对比测试)</td>
         <td> orb 特征提取与匹配<br>
          参考orbslam3 <a href="https://blog.csdn.net/xiaoma_bk/article/details/121223575" target="_blank" rel="noopener noreferrer">算法流程总结</a></td>
     </tr>
-     <tr >
-     <td> spp_extractor.h(用于slam全局描述子提取与匹配)</td>
+     <tr ><td> spp_extractor.h(用于slam全局描述子提取与匹配)</td>
         <td> Superpoint(spp) 特征提取<br>
          参考SuperPoint <a href="https://blog.csdn.net/private_Jack/article/details/132730345" target="_blank" rel="noopener noreferrer">算法流程总结</a></td>
     </tr>
-    <tr >
-     <td> feature_spacial_search.h(spp全局描述子查询)</td>
+    <tr ><td> feature_spacial_search.h(spp全局描述子查询)</td>
         <td> Superpoint 特征查询 <br></td>
     </tr>
-    <tr >
-     <td> spacial_matcher.h(spp全局描述子匹配)</td>
+    <tr ><td> spacial_matcher.h(spp全局描述子匹配)</td>
         <td> Superpoint 特征匹配<br>
       根据描述子匹配距离最小的特征点</td>
     </tr>
-    <tr>
-    <td> parking_slot_detector.h(库位检测)</td>
+    <tr><td> parking_slot_detector.h(库位检测)</td>
         <td> 调用ncnn 库位检测 角点<br></td>
     </tr>
     <tr >
@@ -218,14 +212,53 @@ libjsslam 定位算法代码仓库
             根据加速度计数据与重力对齐,采用误差卡尔曼递推估计姿态
          </td>
     </tr>
-    <tr>
-    <td> global_localozation.h(全局重定位)</td>
-        <td> 根据<br></td>
+    <tr><td> global_localozation.h(全局重定位)</td>
+        <td> <a href="#global_localozation">重定位算法流程</a><br></td>
     </tr>
+    <tr><td> integration_sync.h</td>
+     <td> 实现imu与wheel 数据时间同步</td>
+    </tr>
+    <tr><td> pipeline_ctrl.h</td>
+     <td> 建图与定位模式切换控制</td>
+    </tr> <td> surround_image_stitching.h</td>
+     <td> 读取环视相机参数,生成lut, 拼接成avm图像</td>
+    </tr>
+    </tr> <td> surround_image_detection</td>
+     <td> 对avm拼接图</td>
+    </tr>
+
     
 </table>
 
 
-## golab location
+### 全局重定位
+<span id="global_localozation">global_localozation</span>
+ ```mermaid
+flowchart LR
+  subgraph RoughmapMatch 
+    direction LR
+    proc1[/descripition match /] --Y--> proc2[/continuity check/]
+  end
+  subgraph objectsMatch  
+    proc3[/slot match/]
+  end
+datasource1(localmap) 
+datasource2(offlinemap)
+output([globalLocalization])
+datasource2 --mapkeyframes--> proc1
+datasource1 -- keyframes --> proc1 
+proc2 -- nearbyslots --> proc3
+datasource1 -- slots --> proc3-->output
+ ```
+
+
+
+
+
+
+
+
+
+
 
 
