@@ -4,7 +4,7 @@
  * @Version: 2.0
  * @Date: 2024-09-19 19:43:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-09-27 18:18:13
+ * @LastEditTime: 2024-09-30 16:55:00
  * Copyright: 2024 Taberwu. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -206,7 +206,7 @@ libjsslam 定位算法代码仓库
         <td> 调用ncnn 库位检测 角点<br></td>
     </tr>
     <tr >
-        <td rowspan="7">functional</td>
+        <td rowspan="6">functional</td>
          <td> attitude_estimation.h</td>
         <td> 姿态估计<br>
             根据加速度计数据与重力对齐,采用误差卡尔曼递推估计姿态
@@ -224,9 +224,61 @@ libjsslam 定位算法代码仓库
      <td> 读取环视相机参数,生成lut, 拼接成avm图像</td>
     </tr>
     </tr> <td> surround_image_detection</td>
-     <td> 对avm拼接图</td>
+     <td> 对avm拼接图 分别调用库位检测和地面标识分割 输出检测分割图像</td>
     </tr>
-
+     <tr >
+        <td rowspan="5">fusion( <a href="#global_localozation">基于误差卡尔曼框架的组合定位</a>)[不再使用]</td>
+        <td> eskf.h</td>
+        <td> 误差卡尔曼框架<br>
+            声明 输入量测(correct()), 更新(update**) 以及更新(predict) 的接口
+         </td>
+    </tr>
+     <tr >
+        <td> eskf_localization.h</td>
+        <td> 基于误差卡尔曼的定位算法主程序<br>
+            根据配置文件选用不同的量测,输出定位结果回调函数
+         </td>
+    </tr>
+     <tr >
+        <td> eskf_corrector.h</td>
+        <td> 计算轮速,gnss和零速 误差的修正的 增益和协方差<br>
+         </td>
+    </tr>
+    <tr >
+        <td> eskf_predictor.h</td>
+        <td> 基于IMU数据的预测更新<br>
+         </td>
+    </tr>
+    <tr >
+        <td> zupt_detection.h</td>
+        <td> 零速检测<br>
+         </td>
+    </tr>
+    <tr >
+        <td rowspan="4">graphics(基于Qt实现的可视化)</td>
+        <td> graphics.h</td>
+        <td> 可视化主程序<br>
+            实现依赖声明和页面的注册
+         </td>
+    </tr>
+     <tr >
+        <td> graphics_context.h</td>
+        <td> 增加Tab的实现<br></td>
+    </tr>
+     <tr >
+        <td> mainwidget.h</td>
+        <td> 主控件的布局设置 <br></td>
+    </tr>
+     <tr >
+        <td> scene_cam_imu_calib.h</td>
+        <td> 可视化cam_imu_calib<br></td>
+    </tr>
+    <tr >
+        <td rowspan="3">localization(基于因子图定位算法)[当前使用版本]</td>
+        <td> fusion_localization.h</td>
+        <td> 可视化主程序<br>
+         </td>
+    </tr>
     
 </table>
 
@@ -250,6 +302,60 @@ datasource1 -- keyframes --> proc1
 proc2 -- nearbyslots --> proc3
 datasource1 -- slots --> proc3-->output
  ```
+
+
+ ### 基于ESKF的组合定位
+<span id="ESKF_localozation">fusion</span>
+
+
+```mermaid
+sequenceDiagram 
+participant G as gnss
+participant W as wheel
+participant S as stationary_check
+participant A as InertialPredictor
+G->> A: gnsss_corrector
+W-->> A: wheel_corrector
+S-->> A: stationary_corrector
+```
+
+```mermaid
+flowchart LR
+datasource3(SolvedGnss)
+datasource1(imu) 
+datasource2(wheel)
+
+output([fusionLocalization])
+  subgraph Initialize
+    direction TB
+    proc1[/Cache imu_data/]
+    proc2[/Calc yaw by gnss/]
+    proc3[/Calc Rotaion&&Bais/]
+    init_result([origin_localization])
+  end
+  subgraph InertialPredictor
+     proc4[/predict/]
+  end
+
+  subgraph corrector
+    proc5[/gnsss_corrector/]
+    proc6[/wheel_corrector/]
+    proc7[/stationary_corrector/]
+  end
+
+datasource1 --> proc1 --> proc3 
+datasource3 --> proc2 --> proc3 
+proc3 --> init_result --> proc4 --> output
+
+datasource1 --> proc7 --> proc4
+datasource3 --> proc5 --> proc4
+datasource2 --> proc6 --> proc4
+
+ ```
+
+
+
+
 
 
 
