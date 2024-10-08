@@ -4,7 +4,7 @@
  * @Version: 2.0
  * @Date: 2024-09-19 19:43:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-09-30 16:55:00
+ * @LastEditTime: 2024-10-08 17:24:03
  * Copyright: 2024 Taberwu. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -112,7 +112,8 @@ libjsslam 定位算法代码仓库
         <td> 环视图像拼接映射</td>
     </tr>
     <tr >
-        <td rowspan="8">calibration(标定)</td>
+        <td rowspan="8">calibration(标定)</br>
+        标定数据文件备份在工作站目录(sftp://10.100.127.85/media/joy/hdd/slam_group/dataset/joyson/id6/)</td>
         <td> mono_calib.h</td>
         <td> 录取标定板标定数据,识别AprilTag 标定相机内参<br>
         参考AprilTag <a href="https://blog.csdn.net/wangmj_hdu/article/details/111233878" target="_blank" rel="noopener noreferrer">论文实现链接</a></td>
@@ -227,7 +228,7 @@ libjsslam 定位算法代码仓库
      <td> 对avm拼接图 分别调用库位检测和地面标识分割 输出检测分割图像</td>
     </tr>
      <tr >
-        <td rowspan="5">fusion( <a href="#global_localozation">基于误差卡尔曼框架的组合定位</a>)[不再使用]</td>
+        <td rowspan="5">fusion( <a href="#ESKF_localozation">基于误差卡尔曼框架的组合定位</a>)[不再使用]</td>
         <td> eskf.h</td>
         <td> 误差卡尔曼框架<br>
             声明 输入量测(correct()), 更新(update**) 以及更新(predict) 的接口
@@ -255,7 +256,7 @@ libjsslam 定位算法代码仓库
          </td>
     </tr>
     <tr >
-        <td rowspan="4">graphics(基于Qt实现的可视化)</td>
+        <td rowspan="6">graphics(基于Qt实现的可视化)</td>
         <td> graphics.h</td>
         <td> 可视化主程序<br>
             实现依赖声明和页面的注册
@@ -270,13 +271,56 @@ libjsslam 定位算法代码仓库
         <td> 主控件的布局设置 <br></td>
     </tr>
      <tr >
-        <td> scene_cam_imu_calib.h</td>
-        <td> 可视化cam_imu_calib<br></td>
+        <td> scene_imu_calib.h</td>
+        <td> 可视化imu bsm 标定<br>
+        <a href="./documents/imu_bsm_graphics.png" target="_blank" rel="noopener noreferrer">bsm标定可视化实例</a></td>
+    </tr>
+     <tr >
+        <td> scene_surround_calib.h</td>
+        <td> 可视化环视拼接外参<br>
+        <a href="./documents/surround_calib.png" target="_blank" rel="noopener noreferrer">环视拼接标定可视化实例</a></td>
+    </tr>
+     <tr >
+        <td> scene_stereo_calib.h</td>
+        <td> 可视化标定双目外参<br>
+        <a href="./documents/stereo_calib.png" target="_blank" rel="noopener noreferrer">双目外参标定可视化实例</a></td>
     </tr>
     <tr >
         <td rowspan="3">localization(基于因子图定位算法)[当前使用版本]</td>
         <td> fusion_localization.h</td>
-        <td> 可视化主程序<br>
+        <td> 通过配置文件loc_type 切换</br> 1.OUTDOOR_LOCTYPE( <a href="#factor_graph_localozation_outdoor">基于因子图的户外组合定位算法流程</a>) <br>
+         2. PARK_LOCTYPE( <a href="#factor_graph_vslam">泊车slam定位算法流程</a>) <br>
+         </td>
+    </tr>
+    <tr >
+        <td> gnss_processor.h</td>
+        <td> gnss 数据误差模型判断与预处理<br>
+       根据前后帧之间gnss相对位姿变化与积分的差值判断gnss数据有效性</td>
+    </tr>
+      <tr >
+        <td> hdmap.h  mapmatch_localization.h shape_align.h</td>
+        <td> 地图匹配初版框架(未验证使用)</td>
+    </tr>
+    <tr >
+        <td rowspan="3">snapshot_provider(数据接口)</td>
+        <td> snapshot_provider.h</td>
+        <td> 使用 <a href=" https://www.boost.org/doc/libs/1_85_0/doc/html/signals2.html">boost2::singal2</a> 实现定位算法内部线程安全的数据流 
+         </td>
+    </tr>
+    <tr >
+        <td> message_provider.h</td>
+        <td> 读取离线数据 设置读取的topic 数据类型 以及倍速</br>
+        参考<a href="./applets/config/joyson_id6.json" target="_blank" rel="noopener noreferrer">joyson_id6.json</a> 中 "message_provider"相关配置字</td>
+    </tr>
+    <tr >
+        <td> message_recorder.h</td>
+        <td> 保存snap信号中的数据</br>
+        参考<a href="./applets/config/joyson_id6.json" target="_blank" rel="noopener noreferrer">joyson_id6.json</a> 中 "message_record"相关配置字选择存储的数据topic</td>
+    </tr>
+    <tr >
+        <td rowspan="3">vslam(视觉slam)</td>
+        <td> snapshot_provider.h</td>
+        <td> 使用 <a href=" https://www.boost.org/doc/libs/1_85_0/doc/html/signals2.html">boost2::singal2</a> 实现定位算法内部线程安全的数据流 
          </td>
     </tr>
     
@@ -353,7 +397,137 @@ datasource2 --> proc6 --> proc4
 
  ```
 
+ ### 基于因子图的室外组定位
+<span id="factor_graph_localozation_outdoor">outdoor_loc</span>
+```mermaid
+flowchart TB
+    proc2[/calculateCurrentLoc/]
+    output([localization])
+  subgraph Global_Observe
+     direction TB
+     datasource1(sensor_gnss)
+    proc1{gnss_processor}
+     datasource1 --> proc1
+  end
 
+subgraph Graph Optimize
+    direction LR
+    graphfactor1((observe_state1))
+    graphfactor2((observe_state2))
+    graphfactor3((observe_state3))
+    graphfactor4((observe_state...))
+
+    subgraph Relative_State1
+     direction LR
+     datasource1-2(sensor_imu)
+     datasource1-3(sensor_wheel)   
+     proc1-1[/check stationary/]
+     datasource1-2 --> proc1-1
+     datasource1-3 --> proc1-1
+  end
+
+   subgraph Relative_State2
+     direction TB
+     datasource2-2(sensor_imu)
+     datasource2-3(sensor_wheel)   
+     proc2-1[/check stationary/]
+     datasource2-2 --> proc2-1
+     datasource2-3 --> proc2-1
+  end
+
+ subgraph Relative_State...
+     direction TB
+     datasource3-2(sensor_imu)
+     datasource3-3(sensor_wheel)   
+     proc3-1[/check stationary/]
+     datasource3-2 --> proc3-1
+     datasource3-3 --> proc3-1
+  end
+
+    proc1 --> graphfactor1
+    proc1 --> graphfactor2
+    proc1 --> graphfactor3
+    proc1 --> graphfactor4
+    graphfactor1 --> Relative_State1 -- imu_edge --> graphfactor2
+    proc1-1 -. Y  stationary_edge .-> graphfactor2
+    proc1-1 -. N  wheelodo_edge .-> graphfactor2
+    graphfactor2 --> Relative_State2 -- imu_edge --> graphfactor3
+    proc2-1 -. Y  stationary_edge .-> graphfactor3
+    proc2-1 -. N  wheelodo_edge .-> graphfactor3
+    graphfactor3 --> Relative_State... -- imu_edge --> graphfactor4
+    proc3-1 -. Y  stationary_edge .-> graphfactor4
+    proc3-1 -. N  wheelodo_edge .-> graphfactor4
+  end
+
+    graphfactor4 --> proc2 --> output
+ ```
+
+
+### 基于因子图的泊车slam定位
+<span id="factor_graph_vslam">vslam</span>
+```mermaid
+flowchart TB
+    proc2[/calculateCurrentLoc/]
+    output([localization])
+  subgraph Global_Observe
+     direction LR
+     datasource1(Detection_slots)
+    proc3{updatelocalmap}
+    proc1{localmap match}
+     datasource1 --> proc3 --> proc1
+  end
+
+subgraph Graph Optimize
+    direction LR
+    graphfactor1((observe_state1))
+    graphfactor2((observe_state2))
+    graphfactor3((observe_state3))
+    graphfactor4((observe_state...))
+
+    subgraph Relative_State1
+     direction LR
+     datasource1-2(sensor_imu)
+     datasource1-3(sensor_wheel)   
+     proc1-1[/check stationary/]
+     datasource1-2 --> proc1-1
+     datasource1-3 --> proc1-1
+  end
+
+   subgraph Relative_State2
+     direction TB
+     datasource2-2(sensor_imu)
+     datasource2-3(sensor_wheel)   
+     proc2-1[/check stationary/]
+     datasource2-2 --> proc2-1
+     datasource2-3 --> proc2-1
+  end
+
+ subgraph Relative_State...
+     direction TB
+     datasource3-2(sensor_imu)
+     datasource3-3(sensor_wheel)   
+     proc3-1[/check stationary/]
+     datasource3-2 --> proc3-1
+     datasource3-3 --> proc3-1
+  end
+
+    proc1 --> graphfactor1
+    proc1 --> graphfactor2
+    proc1 --> graphfactor3
+    proc1 --> graphfactor4
+    graphfactor1 --> Relative_State1 -- imu_edge --> graphfactor2
+    proc1-1 -. Y  stationary_edge .-> graphfactor2
+    proc1-1 -. N  wheelodo_edge .-> graphfactor2
+    graphfactor2 --> Relative_State2 -- imu_edge --> graphfactor3
+    proc2-1 -. Y  stationary_edge .-> graphfactor3
+    proc2-1 -. N  wheelodo_edge .-> graphfactor3
+    graphfactor3 --> Relative_State... -- imu_edge --> graphfactor4
+    proc3-1 -. Y  stationary_edge .-> graphfactor4
+    proc3-1 -. N  wheelodo_edge .-> graphfactor4
+  end
+
+    graphfactor4 --> proc2 --> output
+ ```
 
 
 
