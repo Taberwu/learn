@@ -4,7 +4,7 @@
  * @Version: 2.0
  * @Date: 2024-09-19 19:43:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-10-08 17:24:03
+ * @LastEditTime: 2024-10-10 19:05:52
  * Copyright: 2024 Taberwu. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -319,8 +319,8 @@ libjsslam 定位算法代码仓库
     </tr>
     <tr >
         <td rowspan="3">vslam(视觉slam)</td>
-        <td> snapshot_provider.h</td>
-        <td> 使用 <a href=" https://www.boost.org/doc/libs/1_85_0/doc/html/signals2.html">boost2::singal2</a> 实现定位算法内部线程安全的数据流 
+        <td> sliding_window.h</td>
+        <td>  视觉slam算法采用<a href="#vslam_slidewindow">滑动窗口因子图算法框架</a>
          </td>
     </tr>
     
@@ -530,6 +530,30 @@ subgraph Graph Optimize
  ```
 
 
+### vslam 算法流程
+<span id="vslam_slidewindow">slide_window</span>
+
+
+```mermaid
+flowchart LR
+    subgraph KeyFrame
+     direction LR
+     datasource1(image)
+     datasource2(imu)
+     datasource3(wheel)
+     proc1[/empty_tracking/]
+     proc2[/surround_sticth/]
+     proc3[/slots_detecte/]
+     proc4[/sync/]
+     proc5[/framefeature_track/]
+     value1[color_image prepare for GlobalFeature ]
+     datasource1 --> proc2 -- avm --> proc3 -- slot_objs --> proc4
+     datasource1 -- rear_image --> proc1 --> value1 --> proc4
+      datasource1 -. stereo_image .-> proc5 .-> value1
+     datasource2 --> proc4
+     datasource3 --> proc4
+  end
+```
 
 
 
