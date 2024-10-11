@@ -4,7 +4,7 @@
  * @Version: 2.0
  * @Date: 2024-09-19 19:43:29
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-10-10 19:05:52
+ * @LastEditTime: 2024-10-11 19:49:37
  * Copyright: 2024 Taberwu. All Rights Reserved.
  * @Descripttion: 
 -->
@@ -318,12 +318,51 @@ libjsslam 定位算法代码仓库
         参考<a href="./applets/config/joyson_id6.json" target="_blank" rel="noopener noreferrer">joyson_id6.json</a> 中 "message_record"相关配置字选择存储的数据topic</td>
     </tr>
     <tr >
-        <td rowspan="3">vslam(视觉slam)</td>
+        <td rowspan="10">vslam(视觉定位建图)</td>
         <td> sliding_window.h</td>
-        <td>  视觉slam算法采用<a href="#vslam_slidewindow">滑动窗口因子图算法框架</a>
+        <td>  视觉slam算法采用<a href="#vslam_slidewindow">滑动窗口最小二乘优化框架</a>
          </td>
     </tr>
-    
+     <tr >
+        <td> empty_tracking.h</td>
+        <td>  保存后向鱼眼彩色图像(用于生成关键帧的全局描述子)</td>
+    </tr>
+     <tr >
+        <td> framefeature_tracking.h</td>
+        <td>  双目特征点检测匹配 生成基于特征点的全局描述子(暂时不再使用)</td>
+    </tr>
+    <tr >
+        <td> frame.h</td>
+        <td>  图像帧与关键帧的定义</td>
+    </tr>
+    <tr >
+        <td> landmark.h</td>
+        <td>  特征点路标和库位路标定义</td>
+    </tr>
+    <tr >
+        <td> map_provider.h</td>
+        <td>  实现active_map更新,匹配查询 以及load/save接口 </td>
+    </tr>
+    <tr >
+        <td> optical_flow_tracking.h</td>
+        <td>  基于光流跟踪特征点检测匹配(目前暂不使用)</td>
+    </tr>
+    <tr >
+        <td> slot_costfunction.h</td>
+        <td> 最小二乘优化中库位代价函数的定义计算</td>
+    </tr>
+    <tr >
+        <td> wheel_inertial_integration.h</td>
+        <td> 最小二乘优化中轮速+imu的积分及代价函数定义计算</td>
+    </tr>
+    <tr >
+        <td> stereo_costfunction.h</td>
+        <td> 最小二乘优化中双目特征匹配代价函数定义计算</td>
+    </tr>
+    <tr >
+        <td> src</td>
+        <td> 对应算法实现</td>
+    </tr>
 </table>
 
 
@@ -535,7 +574,7 @@ subgraph Graph Optimize
 
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph KeyFrame
      direction LR
      datasource1(image)
@@ -548,11 +587,53 @@ flowchart LR
      proc5[/framefeature_track/]
      value1[color_image prepare for GlobalFeature ]
      datasource1 --> proc2 -- avm --> proc3 -- slot_objs --> proc4
-     datasource1 -- rear_image --> proc1 --> value1 --> proc4
+     datasource1 -- rear_image --> proc1 --> value1 -- frame--> proc4
       datasource1 -. stereo_image .-> proc5 .-> value1
      datasource2 --> proc4
      datasource3 --> proc4
   end
+
+   subgraph initialize
+    direction TB
+        subgraph initializePose
+        direction LR
+            datasource1-2(imu)
+            datasource1-3(wheel)
+            proc1-1[/stationary_detect/]
+            proc1-2[/initializePeriod_check/]
+            proc1-3[/ initializePitchRoll/]
+            datasource1-2 --> proc1-1 -- Y --> proc1-2 -- Y --> proc1-3
+            datasource1-3 --> proc1-1
+        end
+
+        subgraph initializeStructure
+            proc2-1[(feature_landmark </br>基于双目匹配特征点 </br> 目前slam中不再使用)]
+            proc2-2[(slot_landmark)]
+
+            proc2-3[/associateObjectsByProjection/]
+            proc2-1 .-> proc2-3
+            proc2-2 --> proc2-3
+        end
+    initializePose --> initializeStructure
+     end
+
+    subgraph nonlinearTightlyCoupledOptimize
+        direction LR
+        proc3-1[/wheel-interialcost/]
+        proc3-2[/interialcost/]
+        proc3-3[/slot_cost/]
+        proc12([ceres_problem])
+        proc3-1 --> proc12
+        proc3-2 --> proc12
+        proc3-3 --> proc12
+    end
+
+    output((keyframe))
+
+     proc11{Stage::Optimize ?}
+     KeyFrame --> proc11 -- N --> initialize --> nonlinearTightlyCoupledOptimize
+     proc11 -- Y --> nonlinearTightlyCoupledOptimize --> output --> localmap
+     output --> ..
 ```
 
 
